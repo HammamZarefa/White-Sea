@@ -24,6 +24,7 @@
         "phpmailer/phpmailer": "^6.2",
         "razorpay/razorpay": "^2.5",
         "sendgrid/sendgrid": "^7.6",
+        "stichoza/google-translate-php": "^4.1",
         "stripe/stripe-php": "^7.72"
     },
     "require-dev": {

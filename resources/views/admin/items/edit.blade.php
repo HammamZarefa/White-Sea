@@ -195,7 +195,7 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button type="submit" class="btn btn--primary btn-block">@lang('Save Method')</button>
+                        <button type="submit" class="btn btn--primary btn-block">@lang('Save')</button>
                     </div>
                 </form>
             </div>

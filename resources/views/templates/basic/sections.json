@@ -145,27 +145,6 @@
             "modal": true
         }
     },
-    "blog": {
-        "builder": true,
-        "name": "Blog Section",
-        "content": {
-            "heading": "text",
-            "sub_heading": "text"
-        },
-        "element": {
-            "images":{
-                "image":{
-                    "size":"770x390",
-                    "thumb":"600x400"
-                }
-            },
-            "title": "text",
-            "short_description": "text",
-            "description": "textarea-nic",
-            "modal": false
-        }
-    },
-
 
     "subscribe": {
         "builder": true,

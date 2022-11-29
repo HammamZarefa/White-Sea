@@ -47,17 +47,17 @@
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         Start Preloader
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-{{--<div id="overlayer">--}}
-    {{--<div class="loader">--}}
-        {{--<div class="loader-inner"></div>--}}
-    {{--</div>--}}
-{{--</div>--}}
-{{--<a href="#" class="scrollToTop"><i class="fa fa-angle-up"></i></a>--}}
-{{--<div class="figure highlight-background highlight-background--lean-left">--}}
-{{--<a class="register-element-one">--}}
-    {{--<img src="http://127.0.0.1:8000/assets/images/logoIcon/logo.png" height="34px" width="150px" alt="site-logo">--}}
-{{--</a>--}}
-{{--</div>--}}
+<div id="overlayer">
+    <div class="loader">
+        <div class="loader-inner"></div>
+    </div>
+</div>
+<a href="#" class="scrollToTop"><i class="fa fa-angle-up"></i></a>
+<div class="figure highlight-background highlight-background--lean-left">
+<a class="register-element-one">
+    <img src="http://127.0.0.1:8000/assets/images/logoIcon/logo.png" height="34px" width="150px" alt="site-logo">
+</a>
+</div>
 @yield('content')
 
 <!-- footer-section end -->
@@ -108,10 +108,6 @@
         });
     })(jQuery);
 </script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-<a href="https://api.whatsapp.com/send?phone=123123" class="float" target="_blank">
-    <i class="fa fa-whatsapp my-float"></i>
-</a>
 
 </body>
 </html>
