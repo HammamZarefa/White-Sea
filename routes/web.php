@@ -115,7 +115,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::post('/language/update/{id}', 'LanguageController@langUpdatepp')->name('language.manage.update');
         Route::get('/language/edit/{id}', 'LanguageController@langEdit')->name('language.key');
         Route::post('/language/import', 'LanguageController@langImport')->name('language.import_lang');
-
+        Route::get('/auto-translate','LanguageController@searchForStrings')->name('lang.translate');
 
         Route::post('language/store/key/{id}', 'LanguageController@storeLanguageJson')->name('language.store.key');
         Route::post('language/delete/key/{id}', 'LanguageController@deleteLanguageJson')->name('language.delete.key');

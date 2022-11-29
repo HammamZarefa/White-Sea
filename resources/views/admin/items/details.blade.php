@@ -12,116 +12,109 @@
                             <table class="table table-hover">
                                 <tbody>
                                 <tr>
-                                    <td data-label="@lang('Order ID')">@lang('Order ID')</td>
-                                    <td class="text-left" data-label="@lang('Order ID')">{{ $item->id }}</td>
-                                </tr>
-                                {{--<tr>--}}
-                                    {{--<td data-label="@lang('User')">@lang('User')</td>--}}
-                                    {{--<td class="text-left" data-label="@lang('User')"><a href="{{ route('admin.users.detail', $order->user_id) }}">{{ $order->user->username }}</a></td>--}}
-                                {{--</tr>--}}
-                                <tr>
-                                    <td data-label="@lang('Category')">@lang('Category')</td>
-                                    <td class="text-left" data-label="@lang('Category')">{{ $order->category->name }}</td>
-                                </tr>
-                                <tr>
-                                    <td data-label="@lang('Service')">@lang('Service')</td>
-                                    <td class="text-left" data-label="@lang('Service')">{{ $order->service->name }}</td>
-                                </tr>
-                                <tr>
-                                    <td data-label="@lang('Link')">@lang('Link')</td>
-                                    <td class="text-left" data-label="@lang('Link')"><a href="{{ empty(parse_url($order->link, PHP_URL_SCHEME)) ? 'https://' : null }}{{ $order->link }}" target="_blank">{{ $order->link }}</a></td>
-                                </tr>
-                                <tr>
-                                    <td data-label="@lang('Quantity')">@lang('Quantity')</td>
-                                    <td class="text-left" data-label="@lang('Quantity')">{{ $order->quantity }}</td>
-                                </tr>
-                                @if(isset( $order->details))
-                                <tr>
-                                    <td data-label="@lang('Details')">@lang('Details')</td>
-                                    <td class="text-left" data-label="@lang('Details')">{{ $order->details }}</td>
-                                </tr>
-                                @endif
-                                <tr>
-                                    <td data-label="@lang('Price')">@lang('Price')</td>
-                                    <td class="text-left" data-label="@lang('Price')">{{ $order->price }}</td>
-                                </tr>
-                                <tr>
-                                    <td data-label="@lang('Start Counter')">@lang('Start Counter')</td>
-                                    <td data-label="@lang('Start Counter')" class="text-left">
-                                        @if($order->status == 0 || $order->status == 1)
-                                            <input type="text" name="start_counter" max="{{ $order->quantity }}" value="{{ $order->start_counter }}" class="form-control" required>
-                                        @else
-                                            {{ $order->start_counter }}
-                                        @endif
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td data-label="@lang('Remains')">@lang('Remains')</td>
-                                    <td class="text-left" data-label="@lang('Remains')">{{ $order->remain }}</td>
+                                    <td data-label="@lang('Item ID')"><b>@lang('Item ID') : </b></td>
+                                    <td data-label="@lang('Item ID')">{{ $item->item_id }}</td>
+
+                                    <td data-label="@lang('Sender name')"><b>@lang('Sender name'): </b></td>
+                                    <td data-label="@lang('Sender name')">{{ $item->sender_name}}</td>
+
+                                    <td data-label="@lang('Sender Phone')"><b>@lang('Sender Phone') : </b></td>
+                                    <td data-label="@lang('Sender Phone')">{{ $item->sender_phone }}</td>
                                 </tr>
 
-                                @if($order->api_order)
-                                    <tr>
-                                        <td data-label="@lang('API Order')">@lang('API Order')</td>
-                                        <td class="text-left" data-label="@lang('API Order')">
-                                            @if($order->api_order)
-                                                <span class="text--small badge font-weight-normal badge--primary">@lang('Yes')</span>
-                                            @endif
-                                        </td>
-                                    </tr>
-                                    @if($order->order_placed_to_api)
-                                        <tr>
-                                            <td data-label="@lang('API Order ID')">@lang('API Order ID')</td>
-                                            <td class="text-left" data-label="@lang('API Order ID')"><strong>{{ @$order->api_order_id }}</strong></td>
-                                        </tr>
-                                    @endif
-                                    <tr>
-                                        <td data-label="@lang('Order Placed')">@lang('Order Placed To API')</td>
-                                        <td class="text-left" data-label="@lang('Order Placed')">
-                                            @if($order->order_placed_to_api)
-                                                <span class="text--small badge font-weight-normal badge--primary">@lang('Yes')</span>
-                                            @else
-                                                <span class="text--small badge font-weight-normal badge--danger">@lang('No')</span>
-                                            @endif
-                                        </td>
-                                    </tr>
-                                @endif
+                                <tr>
+                                    <td data-label="@lang('Shipment Number')"><b>@lang('Shipment Number'): </b></td>
+                                    <td data-label="@lang('Shipment Number')">{{ $item->shipment }}</td>
+
+                                    <td data-label="@lang('recipient_name')"><b>@lang('Recipient Name') :</b></td>
+                                    <td data-label="@lang('recipient_name')">{{ $item->recipient_name }}</td>
+
+                                    <td data-label="@lang('recipient_phone')"><b>@lang('Recipient Phone') : </b></td>
+                                    <td data-label="@lang('recipient_phone')">{{ $item->recipient_phone }}</td>
+                                </tr>
 
                                 <tr>
-                                    <td data-label="@lang('Status')">@lang('Status')</td>
-                                    <td data-label="@lang('Status')" class="text-left">
-                                        @if($order->status === 0 || $order->status === 1)
-                                            <select class="form-control" name="status" required>
-                                                <option>--@lang('Select Status')--</option>
-                                                <option value="0" {{ $order->status === 0 ? 'selected' : null }}>@lang('Pending')</option>
-                                                <option value="1" {{ $order->status === 1 ? 'selected' : null }}>@lang('Processing')</option>
-                                                <option value="2" {{ $order->status === 2 ? 'selected' : null }}>@lang('Completed')</option>
-                                                <option value="3" {{ $order->status === 3 ? 'selected' : null }}>@lang('Cancelled')</option>
-                                                <option value="4" {{ $order->status === 4 ? 'selected' : null }}>@lang('Refunded')</option>
-                                                <option value="5" {{ $order->status === 5 ? 'selected' : null }}>@lang('Waiting Code')</option>
-                                            </select>
-                                        @elseif($order->status === 2)
-                                            <span
-                                                class="text--small badge font-weight-normal badge--success">@lang('Completed')</span>
-                                        @elseif($order->status === 3)
-                                            <span
-                                                class="text--small badge font-weight-normal badge--danger">@lang('Cancelled')</span>
-                                        @else
-                                            <span
-                                                class="text--small badge font-weight-normal badge--dark">@lang('Refunded')</span>
-                                        @endif
-                                    </td>
+                                    <td data-label="@lang('destination')"><b>@lang('Destination') : </b></td>
+                                    <td data-label="@lang('destination')">{{ $item->destination }}</td>
+
+                                    <td data-label="@lang('packages_content')"><b>@lang('Packages Content') : </b></td>
+                                    <td data-label="@lang('packages_content')">{!! $item->packages_content !!} </td>
+
+                                    <td></td>
                                 </tr>
+
+                                <tr>
+                                    <td data-label="@lang('packages_number')"><b>@lang('Packages Number') : </b></td>
+                                    <td data-label="@lang('packages_number')">{{ $item->packages_number }}</td>
+
+                                    <td data-label="@lang('received_packages')"><b>@lang('Received Packages') : </b>
+                                    </td>
+                                    <td data-label="@lang('received_packages')">{{ $item->received_packages }}</td>
+
+                                    <td data-label="@lang('lost_packages')"><b>@lang('Lost Packages') : </b></td>
+                                    <td data-label="@lang('lost_packages')">{!! $item->lost_packages !!} </td>
+                                </tr>
+
+                                <tr>
+                                    <td data-label="@lang('delivered_packages')"><b>@lang('Delivered Packages') : </b>
+                                    </td>
+                                    <td data-label="@lang('delivered_packages')">{{ $item->delivered_packages }}</td>
+
+                                    <td data-label="@lang('remaining_packages')"><b>@lang('Remaining Packages') : </b>
+                                    </td>
+                                    <td data-label="@lang('remaining_packages')">{{ $item->remaining_packages }}</td>
+
+                                    <td data-label="@lang('delivered_by')"><b>@lang('Delivered By') : </b></td>
+                                    <td data-label="@lang('delivered_by')">{{ $item->delivered_by }} </td>
+                                </tr>
+
+                                <tr>
+
+                                    <td data-label="@lang('sending_date')"><b>@lang('Sending Date') : </b></td>
+                                    <td data-label="@lang('sending_date')">{{ $item->sending_date }}</td>
+
+                                    <td data-label="@lang('sending_notes')"><b>@lang('Sending Notes') : </b></td>
+                                    <td data-label="@lang('sending_notes')">{!! $item->sending_notes !!} </td>
+                                    <td></td>
+                                </tr>
+
+                                <tr>
+                                    <td data-label="@lang('cost')"><b>@lang('Cost') : </b></td>
+                                    <td data-label="@lang('cost')">{{ $item->cost }}</td>
+
+                                    <td data-label="@lang('down_payment')"><b>@lang('Down Payment') : </b></td>
+                                    <td data-label="@lang('down_payment')">{{ $item->down_payment }} </td>
+
+                                    <td data-label="@lang('second_installment')"><b>@lang('Second Installment') : </b>
+                                    </td>
+                                    <td data-label="@lang('second_installment')">{{ $item->second_installment }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td data-label="@lang('remaining_amount')"><b>@lang('Remaining Amount') : </b></td>
+                                    <td data-label="@lang('remaining_amount')">{{ $item->remaining_amount }}</td>
+
+                                    <td data-label="@lang('delivery_method')"><b>@lang('Delivery Method') : </b></td>
+                                    <td data-label="@lang('delivery_method')">{{ $item->delivery_method }}</td>
+
+                                    <td data-label="@lang('delivered_date')"><b>@lang('Delivered Date') : </b></td>
+                                    <td data-label="@lang('delivered_date')">{{ $item->delivered_date }}</td>
+                                </tr>
+
+                                <tr>
+
+                                    <td data-label="@lang('status')"><b>@lang('Status') : </b></td>
+                                    <td data-label="@lang('status')">{{ $item->status }}</td>
+                                    <td data-label="@lang('notes')"><b>@lang('Notes') : </b></td>
+                                    <td data-label="@lang('notes')">{{ $item->notes }} </td>
+                                    <td></td>
+                                </tr>
+
                                 </tbody>
                             </table>
                         </div>
                     </div>
 
-                    @if($order->status === 0 || $order->status === 1)
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn--primary btn-block btn-lg">@lang('Save Changes')</button>
-                        </div>
-                    @endif
                 </form>
             </div><!-- card end -->
         </div>
@@ -130,5 +123,5 @@
 
 @push('breadcrumb-plugins')
     <a class="btn btn-sm btn--primary box--shadow1 text-white text--small" href="{{ url()->previous() }}"><i
-            class="fa fa-fw fa-backward"></i>@lang('Go Back')</a>
+                class="fa fa-fw fa-backward"></i>@lang('Go Back')</a>
 @endpush

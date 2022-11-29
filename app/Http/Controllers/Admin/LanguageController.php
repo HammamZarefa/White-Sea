@@ -7,8 +7,10 @@ use Illuminate\Http\Request;
 
 use App\Models\Language;
 use App\Rules\FileTypeValidate;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\File;
 use Image;
+use Stichoza\GoogleTranslate\GoogleTranslate;
 
 
 class LanguageController extends Controller
@@ -139,21 +141,6 @@ class LanguageController extends Controller
         return 'success';
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public function storeLanguageJson(Request $request, $id)
     {
         $la = Language::find($id);
@@ -219,6 +206,56 @@ class LanguageController extends Controller
 
         $notify[] = ['success', "Update successfully"];
         return back()->withNotify($notify);
+    }
+
+    public function searchForStrings()
+    {
+        // finalise the regular expression, matching the whole line
+        $pattern = "/@lang\('(.+?)'\)/m";
+        $files = File::allFiles(resource_path('views/admin/partials'));
+        $strings=[];
+        foreach ($files as $file) {
+            $contents=File::get($file->getPathname());
+// search, and store all matching occurences in $matches
+            if (preg_match_all($pattern, $contents, $matches)) {
+                implode("\n", $matches[1]);
+            }
+            $strings[]=$matches[1];
+        }
+        $strings = Arr::flatten($strings);
+        $langfile = file_get_contents(resource_path('lang/'). 'keywords.json');
+        foreach ($strings as $string) {
+            $reqKey = trim($string);
+            if (!array_key_exists($reqKey, json_decode($langfile, true))) {
+                $newArr[$reqKey] = trim($string);
+                $itemsss = json_decode($langfile, true);
+                $result = array_merge($itemsss, $newArr);
+                file_put_contents(resource_path('lang/') . 'keywords.json', json_encode($result));
+            }
+        }
+        $jsonfiles = File::allFiles(resource_path('lang/'));
+        foreach ($jsonfiles as $file)
+        {
+            if ($file->getExtension()=='json') {
+                if ($file->getFilename() != 'kewwords.json')
+                {
+                    $langjson = file_get_contents($file);
+                    foreach ($strings as $string) {
+                        $reqKey = trim($string);
+                        if (!array_key_exists($reqKey, json_decode($langjson, true))) {
+                            $newArr[$reqKey] = trim($string);
+                            if ($file->getFilename()!='en.json')
+                                $newArr[$reqKey] = GoogleTranslate::trans( $newArr[$reqKey], preg_replace("/\\.[^.]*$/", "", $file->getFilename()), 'en');
+                            $itemsss = json_decode($langjson, true);
+
+                            $result = array_merge($itemsss, $newArr);
+                            file_put_contents(resource_path('lang/') . $file->getFilename(), json_encode($result));
+                        }
+                    }
+                }
+            }
+        }
+        return "Updated all strings successfully";
     }
 
 }
