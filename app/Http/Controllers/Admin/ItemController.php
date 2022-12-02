@@ -21,7 +21,7 @@ class ItemController extends Controller
     {
         $page_title = 'الإشعارات';
         $empty_message = 'No Result Found';
-        $items=Item::all();
+        $items=Item::where('is_active',1)->get();
         return view('admin.items.index',compact('items','empty_message','page_title'));
     }
 
@@ -44,6 +44,7 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
+
         $data= $request->except(['_token']);
         ShipmentItem::create($data);
         $notify[] = ['success', 'Shipment added!'];
@@ -100,7 +101,11 @@ class ItemController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $item=ShipmentItem::findorfail($id);
+        $item->is_active=false;
+        $item->save();
+        $notify[] = ['success', 'Item Deleted'];
+        return back()->withNotify($notify);
     }
 
    public function shipmentItems($id)
@@ -108,7 +113,7 @@ class ItemController extends Controller
        $shipment=Shipment::findorfail($id);
        $empty_message = 'No Result Found';
        $page_title = $shipment->title . '  ' . $shipment->shipment_id;
-       $items=ShipmentItem::where('shipment',$id)->paginate(getPaginate());
+       $items=ShipmentItem::where('shipment',$id)->where('is_active',1)->paginate(getPaginate());
        return view('admin.items.index',compact('page_title','empty_message','items','shipment'));
    }
 

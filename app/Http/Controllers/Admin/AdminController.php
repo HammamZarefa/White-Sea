@@ -115,11 +115,6 @@ class AdminController extends Controller
 
     public function profileUpdate(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|email',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png'
-        ]);
 
         $user = Auth::guard('admin')->user();
 

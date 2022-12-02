@@ -77,7 +77,7 @@
                                             <h5 class="card-header bg--dark">@lang('Packages Content')</h5>
                                             <div class="card-body">
                                                 <div class="form-group">
-                                                    <textarea rows="2" class="form-control border-radius-5 nicEdit" name="packages_content">{{$item->packages_content }}</textarea>
+                                                    <textarea rows="2" class="form-control border-radius-5 " name="packages_content">{{$item->packages_content }}</textarea>
                                                 </div>
                                             </div>
                                         </div>
