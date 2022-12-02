@@ -164,6 +164,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::resource('shipments', 'ShipmentController');
 
         //Items
+        Route::post('items/status/{id}','ItemController@destroy')->name('item.status');
         Route::get('shipmentitems/{id}','ItemController@shipmentItems')->name('shipment.items');
         Route::get('shipment/{id}','ItemController@create')->name('shipment.item.create');
         Route::get('shipmentsearch/{id}','ItemController@search')->name('shipment.item.search');

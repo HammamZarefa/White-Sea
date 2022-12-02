@@ -80,6 +80,13 @@
                                            class="icon-btn btn--primary ml-1">
                                             <i class="la la-edit"></i>
                                         </a>
+
+                                        <a href="javascript:void(0)"
+                                           class="icon-btn btn--danger ml-1 statusBtn"
+                                           data-original-title="@lang('Status')" data-toggle="tooltip"
+                                           data-url="{{ route('admin.item.status', $item->id) }}">
+                                            <i class="la la-trash"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             @empty
@@ -103,7 +110,7 @@
 
 @push('breadcrumb-plugins')
     <div class="row">
-        <div class="col-lg-4">
+        <div class="col-lg-6">
             <form action="{{ route('admin.shipment.item.search',$shipment) }}" method="GET"
                   class="form-inline float-sm-right bg--white">
                 <div class="input-group has_append">
@@ -115,16 +122,41 @@
                 </div>
             </form>
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-3">
             <div class="page-title">
                 <a class="btn btn--primary"
                    href="{{route('admin.shipment.item.create',$shipment)}}">@lang('Add New Item')</a>
             </div>
+        </div>
+        <div class="col-lg-3">
             <a class="btn btn--primary" href="{{route('admin.shipment.item.export',$shipment)}}">
                 @lang('Download CSV')
             </a>
         </div>
+    </div>
 
+    {{--// Status MODAL --}}
+    <div class="modal fade" id="statusModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">@lang('Update Status')</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <form method="post" action="">
+                    @csrf
+                    {{--<input type="hidden" name="id" id="delete_id" class="delete_id" value="0">--}}
+                    <div class="modal-body">
+                        <p class="text-muted">@lang('Are you sure to change the status?')</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn--dark" data-dismiss="modal">@lang('No')</button>
+                        <button type="submit" class="btn btn--primary">@lang('Yes')</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 @endpush
 
@@ -136,64 +168,18 @@
         }
     </style>
 @endpush
-<script type="text/javascript">
-    function tableToCSV() {
 
-        // Variable to store the final csv data
-        var csv_data = [];
+@push('script')
+<script>
+    (function ($) {
+        "use strict";
+        $('.statusBtn').on('click', function () {
+            var modal = $('#statusModal');
+            var url = $(this).data('url');
 
-        // Get each row data
-        var rows = document.getElementsByTagName('tr');
-        for (var i = 0; i < rows.length; i++) {
-
-            // Get each column data
-            var cols = rows[i].querySelectorAll('td,th');
-
-            // Stores each csv row data
-            var csvrow = [];
-            for (var j = 0; j < cols.length; j++) {
-
-                // Get the text data of each cell
-                // of a row and push it to csvrow
-                csvrow.push(cols[j].innerHTML);
-            }
-
-            // Combine each column value with comma
-            csv_data.push(csvrow.join(","));
-        }
-
-        // Combine each row data with new line character
-        csv_data = csv_data.join('\n');
-
-        // Call this function to download csv file
-        downloadCSVFile(csv_data);
-
-    }
-
-    function downloadCSVFile(csv_data) {
-
-        // Create CSV file object and feed
-        // our csv_data into it
-        CSVFile = new Blob([csv_data], {
-            type: "text/csv"
+            modal.find('form').attr('action', url);
+            modal.modal('show');
         });
-
-        // Create to temporary link to initiate
-        // download process
-        var temp_link = document.createElement('a');
-
-        // Download csv file
-        temp_link.download = "GfG.csv";
-        var url = window.URL.createObjectURL(CSVFile);
-        temp_link.href = url;
-
-        // This link should not be displayed
-        temp_link.style.display = "none";
-        document.body.appendChild(temp_link);
-
-        // Automatically click the link to
-        // trigger download
-        temp_link.click();
-        document.body.removeChild(temp_link);
-    }
+    })(jQuery);
 </script>
+@endpush
