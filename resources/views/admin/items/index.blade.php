@@ -34,7 +34,7 @@
                                     <td data-label="@lang('Item ID')">{{ $item->item_id }}</td>
                                     <td data-label="@lang('Sender Name')">{{$item->sender_name}}</td>
                                     <td data-label="@lang('Sender Phone')">
-                                        <a href="https://wa.me/send?phone=934626910&attachment=c://users/Hammam/Downloads/My.pdf">{{$item->sender_phone}}</a></td>
+                                        {{$item->sender_phone}}</td>
                                     <td data-label="@lang('Recipient Name')">{{$item->recipient_name}}</td>
                                     <td data-label="@lang('Recipient Phone')">{{ $item->recipient_phone }}</td>
                                     <td data-label="@lang('Destination')">{{ $item->destination }}</td>
