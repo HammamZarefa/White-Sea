@@ -53,7 +53,10 @@ class ItemsExport implements FromCollection, WithHeadings , WithEvents ,WithStyl
            'remaining_amount',
            'notes',
            'status',
-           'delivery_method')->where('shipment',$this->id)->get();
+           'delivery_method',
+           'weight',
+       'recivied_date_in_qatar'
+       )->where('shipment',$this->id)->get();
 
         return $items;
     }
@@ -83,7 +86,9 @@ class ItemsExport implements FromCollection, WithHeadings , WithEvents ,WithStyl
             'الباقي',
             'ملاحظات',
             'حالة الشحن',
-            'طريقة التوصيل'
+            'طريقة التوصيل',
+            'الوزن',
+            'تاريخ الإستلام في قطر'
 
         ];
 

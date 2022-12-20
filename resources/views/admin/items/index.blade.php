@@ -16,11 +16,12 @@
                                 <th scope="col">@lang('Destination')</th>
                                 <th scope="col">@lang('Package Content')</th>
                                 <th scope="col">@lang('Packages Number')</th>
-                                <th scope="col">@lang('Received Packages')</th>
-                                <th scope="col">@lang('Delivered Packages')</th>
-                                <th scope="col">@lang('Sending Date')</th>
-                                <th scope="col">@lang('Delivery Method')</th>
-                                <th scope="col">@lang('Status')</th>
+                                {{--<th scope="col">@lang('Received Packages')</th>--}}
+                                {{--<th scope="col">@lang('Delivered Packages')</th>--}}
+                                {{--<th scope="col">@lang('Sending Date')</th>--}}
+                                {{--<th scope="col">@lang('Delivery Method')</th>--}}
+                                {{--<th scope="col">@lang('Recivied in Qatar')</th>--}}
+                                {{--<th scope="col">@lang('Status')</th>--}}
                                 {{--<th scope="col">@lang('Status')</th>--}}
                                 {{--<th scope="col">@lang('API Order')</th>--}}
                                 {{--<th scope="col">@lang('Date')</th>--}}
@@ -32,45 +33,20 @@
                                 <tr>
                                     <td data-label="@lang('Item ID')">{{ $item->item_id }}</td>
                                     <td data-label="@lang('Sender Name')">{{$item->sender_name}}</td>
-                                    <td data-label="@lang('Sender Phone')">{{$item->sender_phone}}</td>
+                                    <td data-label="@lang('Sender Phone')">
+                                        <a href="https://wa.me/send?phone=934626910&attachment=c://users/Hammam/Downloads/My.pdf">{{$item->sender_phone}}</a></td>
                                     <td data-label="@lang('Recipient Name')">{{$item->recipient_name}}</td>
                                     <td data-label="@lang('Recipient Phone')">{{ $item->recipient_phone }}</td>
                                     <td data-label="@lang('Destination')">{{ $item->destination }}</td>
                                     <td data-label="@lang('Package Content')">{!! $item->packages_content !!} </td>
                                     <td data-label="@lang('Packages Number')">{{ $item->packages_number }}</td>
-                                    <td data-label="@lang('Received Packages')">{{ $item->received_packages }}</td>
-                                    <td data-label="@lang('Delivered Packages')">{{ $item->delivered_packages }}</td>
-                                    <td data-label="@lang('Sending Date')">{{ $item->sending_date }}</td>
-                                    <td data-label="@lang('Delivery Method')">{{ $item->delivery_method }}</td>
-                                    <td data-label="@lang('Status')">{{ $item->status }}</td>
-                                    {{--<td data-label="@lang('Status')">--}}
-                                    {{--@if($item->status === 0)--}}
-                                    {{--<span--}}
-                                    {{--class="text--small badge font-weight-normal badge--warning">@lang('Pending')</span>--}}
-                                    {{--@elseif($item->status === 1)--}}
-                                    {{--<span--}}
-                                    {{--class="text--small badge font-weight-normal badge--primary">@lang('Processing')</span>--}}
-                                    {{--@elseif($item->status === 2)--}}
-                                    {{--<span--}}
-                                    {{--class="text--small badge font-weight-normal badge--success">@lang('Completed')</span>--}}
-                                    {{--@elseif($item->status === 3)--}}
-                                    {{--<span--}}
-                                    {{--class="text--small badge font-weight-normal badge--danger">@lang('Cancelled')</span>--}}
-                                    {{--@elseif($item->status === 4)--}}
-                                    {{--<span--}}
-                                    {{--class="text--small badge font-weight-normal badge--danger">@lang('Refunded')</span>--}}
-                                    {{--@elseif($item->status===5)--}}
-                                    {{--<span--}}
-                                    {{--class="text--small badge font-weight-normal badge--dark">@lang('Waiting Code')</span>--}}
-                                    {{--@endif--}}
-                                    {{--</td>--}}
-                                    {{--<td data-label="@lang('API Order')">--}}
-                                    {{--@if($item->api_order)--}}
-                                    {{--<span--}}
-                                    {{--class="text--small badge font-weight-normal badge--primary">@lang('Api')</span>--}}
-                                    {{--@endif--}}
-                                    {{--</td>--}}
-                                    {{--<td data-label="@lang('Date')">{{ showDateTime($item->created_at) }}</td>--}}
+                                    {{--<td data-label="@lang('Received Packages')">{{ $item->received_packages }}</td>--}}
+                                    {{--<td data-label="@lang('Delivered Packages')">{{ $item->delivered_packages }}</td>--}}
+                                    {{--<td data-label="@lang('Sending Date')">{{ $item->sending_date }}</td>--}}
+                                    {{--<td data-label="@lang('Delivery Method')">{{ $item->delivery_method }}</td>--}}
+                                    {{--<td data-label="@lang('Recivied in Qatar')">{{ $item->recivied_date_in_qatar }}</td>--}}
+                                    {{--<td data-label="@lang('Sending from Qatar')">{{ $item->sending_date_from_qatar }}</td>--}}
+                                    {{--<td data-label="@lang('Status')">{{ $item->status }}</td>--}}
                                     <td data-label="@lang('Action')">
                                         <a href="{{ route('admin.items.show', $item->id) }}"
                                            class="icon-btn btn--primary ml-1">
@@ -80,12 +56,15 @@
                                            class="icon-btn btn--primary ml-1">
                                             <i class="la la-edit"></i>
                                         </a>
-
                                         <a href="javascript:void(0)"
                                            class="icon-btn btn--danger ml-1 statusBtn"
                                            data-original-title="@lang('Status')" data-toggle="tooltip"
                                            data-url="{{ route('admin.item.status', $item->id) }}">
                                             <i class="la la-trash"></i>
+                                        </a>
+                                        <a href="{{ route('admin.item.print', $item->id) }}"
+                                           class="icon-btn btn--primary ml-1">
+                                            <i class="la la-print"></i>
                                         </a>
                                     </td>
                                 </tr>
@@ -99,9 +78,9 @@
                     </div>
                 </div>
 
-                {{--<div class="card-footer">--}}
-                {{--{{ $orders->links('admin.partials.paginate') }}--}}
-                {{--</div>--}}
+                <div class="card-footer">
+                {{ $items->links('admin.partials.paginate') }}
+                </div>
             </div><!-- card end -->
 
         </div>

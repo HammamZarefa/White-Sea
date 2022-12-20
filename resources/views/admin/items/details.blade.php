@@ -34,8 +34,11 @@
                                     <td data-label="@lang('destination')"><b>@lang('Destination') : </b></td>
                                     <td data-label="@lang('destination')">{{ $item->destination }}</td>
 
-                                    <td data-label="@lang('packages_content')"><b>@lang('Packages Content') : </b></td>
-                                    <td data-label="@lang('packages_content')">{!! $item->packages_content !!} </td>
+                                    <td data-label="@lang('Recivied in Qatar')"><b>@lang('Recivied in Qatar') : </b></td>
+                                    <td data-label="@lang('Recivied in Qatar')">{{ $item->recivied_date_in_qatar }}</td>
+
+                                    <td data-label="@lang('Weight')"><b>@lang('Weight') : </b></td>
+                                    <td data-label="@lang('Weight')">{{ $item->weight }}</td>
 
                                     <td></td>
                                 </tr>
@@ -99,7 +102,6 @@
                                 </tr>
 
                                 <tr>
-
                                     <td data-label="@lang('status')"><b>@lang('Status') : </b></td>
                                     <td data-label="@lang('status')">{{ $item->status }}</td>
                                     <td data-label="@lang('notes')"><b>@lang('Notes') : </b></td>
@@ -107,49 +109,13 @@
                                     <td></td>
                                 </tr>
 
+                                <tr style="height: 120px; "> <td data-label="@lang('packages_content')"><b>@lang('Packages Content') : </b></td>
+                                    <td data-label="@lang('packages_content')">{!! $item->packages_content !!} </td></tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
             </div><!-- card end -->
-        </div>
-    </div>
-
-
-    {{--// Status MODAL --}}
-    <div class="modal fade" id="printModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div id="invoice">
-            <div class="container mb-3">
-                <div class="d-flex flex-column border border-2 border-dark p-2 bg-light">
-                    <div class="d-flex w-100 justify-content-between">
-                        <span class="text-dark fw-bolder">اسم المستخدم:</span>
-                        <span class="text-dark fw-bolder">${user_data.id}</span>
-                    </div>
-                    <div class="d-flex w-100 justify-content-between">
-                        <span class="text-dark fw-bolder">معرف الكوبون:</span>
-                        <span class="text-dark fw-bolder">${ticket_result.invoice_id}</span>
-                    </div>
-                    <div class="d-flex w-100 justify-content-between">
-                        <span class="text-dark fw-bolder">تاريخ:</span>
-                        <span class="text-dark fw-bolder">${dateString}</span>
-                    </div>
-                </div>
-            </div>
-            <div class="container mb-3">
-                <div class="d-flex flex-column border border-2 border-dark p-2 bg-light">
-                    <div class="d-flex w-100 justify-content-between">
-                        <span class="text-dark fw-bolder"المبلغ:</span>
-                        <span class="text-dark fw-bolder">${paid_amount.toFixed(2)} ${currency}</span>
-                    </div>
-                    <div class="d-flex w-100 justify-content-between">
-                        <span class="text-dark fw-bolder">ارقام زوجيه:</span>
-                        <span class="text-dark fw-bolder">1620470</span>
-                    </div>
-                    <div class="d-flex w-100 justify-content-center">
-                        <span class="text-dark fw-bolder">${return_amount.toFixed(2) *paid_amount.toFixed(2) } ${currency}</span>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -160,21 +126,21 @@
     <a class="btn btn-sm btn--primary box--shadow1 text-white text--small" href="{{ url()->previous() }}"><i
                 class="fa fa-fw fa-backward"></i>@lang('Go Back')</a>
 
-    <a class="btn btn-sm btn--primary box--shadow1 print"><i
-                class="fa fa-fw fa-backward"></i>@lang('Go')</a>
+    <a href="{{ route('admin.item.print', $item->id) }}" class="btn btn-sm btn--primary box--shadow1 print"><i
+                class="fa fa-fw fa-print"></i> @lang('Print')</a>
 @endpush
 
-@push('script')
-    <script>
-        (function ($) {
-            "use strict";
-            $('.print').on('click', function () {
-                var modal = $('#printModal');
-                var url = $(this).data('url');
+{{--@push('script')--}}
+    {{--<script>--}}
+        {{--(function ($) {--}}
+            {{--"use strict";--}}
+            {{--$('.print').on('click', function () {--}}
+                {{--var modal = $('#printModal');--}}
+                {{--var url = $(this).data('url');--}}
 
-                modal.find('form').attr('action', url);
-                modal.modal('show');
-            });
-        })(jQuery);
-    </script>
-@endpush
+                {{--modal.find('form').attr('action', url);--}}
+                {{--modal.modal('show');--}}
+            {{--});--}}
+        {{--})(jQuery);--}}
+    {{--</script>--}}
+{{--@endpush--}}
