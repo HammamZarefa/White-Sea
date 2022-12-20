@@ -9,10 +9,10 @@
                         <div class="payment-method-item">
                             <div class="payment-method-header d-flex flex-wrap">
                                 <div class="content">
-                                    <div class="row mt-4 mb-none-15">
+                                    <div class="row mt-4 mb-none-15 ">
                                         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3 mb-15">
                                             <div class="input-group">
-                                                <label class="w-100 font-weight-bold">@lang('Item Number') <span class="text-danger">*</span></label>
+                                                <label class="w-100 font-weight-bold ">@lang('Item Number') <span class="text-danger">*</span></label>
                                                 <input type="text" class="form-control " placeholder="@lang('Item Number')" name="item_id" value="{{ old('item_id') }}"/>
                                                 <input type="hidden" class="form-control "  name="shipment" value="{{$shipment}}"/>
                                             </div>
@@ -23,18 +23,31 @@
                                                 <input type="text" name="destination" placeholder="@lang('Destination')" class="form-control border-radius-5" value="{{ old('destination') }}"/>
                                             </div>
                                         </div>
-                                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3 mb-15">
-                                            <div class="input-group">
-                                                <label class="w-100 font-weight-bold">@lang('Sending Date') <span class="text-danger">*</span></label>
-                                                <input type="date" name="sending_date" placeholder="@lang('Sending Date')" class="form-control border-radius-5" value="{{ old('sending_date') }}"/>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3 mb-15">
+                                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-2 mb-15">
                                             <div class="input-group">
                                                 <label class="w-100 font-weight-bold">@lang('Packages Number') <span class="text-danger">*</span></label>
                                                 <input type="number" class="form-control " placeholder="@lang('Packages Number')" name="packages_number" value="{{ old('packages_number') }}"/>
                                             </div>
                                         </div>
+                                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-2 mb-15">
+                                            <div class="input-group">
+                                                <label class="w-100 font-weight-bold">@lang('Weight') KG<span class="text-danger">*</span></label>
+                                                <input type="string" class="form-control " placeholder="@lang('Weight')" name="weight" value="{{ old('Weight') }}"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-2 mb-15">
+                                            <div class="input-group">
+                                                <label class="w-100 font-weight-bold">@lang('Sending Date') <span class="text-danger">*</span></label>
+                                                <input type="date" name="sending_date" placeholder="@lang('Sending Date')" class="form-control border-radius-5" value="{{ old('sending_date') }}"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-2 mb-15">
+                                            <div class="input-group">
+                                                <label class="w-100 font-weight-bold">@lang('Recivied in Qatar') <span class="text-danger">*</span></label>
+                                                <input type="date" name="recivied_date_in_qatar" placeholder="@lang('Recivied in Qatar')" class="form-control border-radius-5" value="{{ old('recivied_date_in_qatar') }}"/>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>

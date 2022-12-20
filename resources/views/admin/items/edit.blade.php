@@ -24,16 +24,28 @@
                                                 <input type="text" name="destination" placeholder="@lang('Destination')" class="form-control border-radius-5" value="{{ $item->destination}}"/>
                                             </div>
                                         </div>
-                                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3 mb-15">
+                                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-2 mb-15">
+                                            <div class="input-group">
+                                                <label class="w-100 font-weight-bold">@lang('Packages Number') <span class="text-danger">*</span></label>
+                                                <input type="number" class="form-control " placeholder="@lang('Packages Number')" name="packages_number" value="{{ $item->packages_number }}"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-2 mb-15">
+                                            <div class="input-group">
+                                                <label class="w-100 font-weight-bold">@lang('Weight')  KG<span class="text-danger">*</span></label>
+                                                <input type="string" class="form-control " placeholder="@lang('Weight')" name="weight" value="{{ $item->weight }}"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-2 mb-15">
                                             <div class="input-group">
                                                 <label class="w-100 font-weight-bold">@lang('Sending Date') <span class="text-danger">*</span></label>
                                                 <input type="date" name="sending_date" placeholder="@lang('Sending Date')" class="form-control border-radius-5" value="{{ $item->sending_date}}"/>
                                             </div>
                                         </div>
-                                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3 mb-15">
+                                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-2 mb-15">
                                             <div class="input-group">
-                                                <label class="w-100 font-weight-bold">@lang('Packages Number') <span class="text-danger">*</span></label>
-                                                <input type="number" class="form-control " placeholder="@lang('Packages Number')" name="packages_number" value="{{ $item->packages_number }}"/>
+                                                <label class="w-100 font-weight-bold">@lang('Recivied in Qatar') <span class="text-danger">*</span></label>
+                                                <input type="date" name="recivied_date_in_qatar" placeholder="@lang('Recivied in Qatar')" class="form-control border-radius-5" value="{{ $item->recivied_date_in_qatar}}"/>
                                             </div>
                                         </div>
                                     </div>

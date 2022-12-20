@@ -139,4 +139,12 @@ class ItemController extends Controller
     {
         return Excel::download(new itemsExport($id), 'items.xlsx');
     }
+
+    public function printItem($id)
+    {
+        $page_title='Print Item';
+        $item=ShipmentItem::findorfail($id);
+        $contents=explode('،',$item->packages_content );
+        return view('admin.items.print',compact('item','page_title','contents'));
+    }
 }
