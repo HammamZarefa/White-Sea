@@ -35,11 +35,19 @@
             <div class="row align-items-center">
                 <div class="col-lg-7">
                     <div class="banner-content">
-                        <h2 class="title">{{ __(@$hero_content->data_values->heading) }}</h2>
-                        <p>{{ __(@$hero_content->data_values->sub_heading) }}</p>
-                        <div class="banner-btn">
-                            <a href="{{ @$hero_content->data_values->button_link }}" class="cmn-btn">{{ __(@$hero_content->data_values->button) }}</a>
-                        </div>
+                        <h2 class="title">@lang('Tracking order')</h2>
+                        <form class="register-form" method="post" action="{{route('query')}}">
+                            @csrf
+                            <div class="row justify-content-center ml-b-20">
+                                <div class="col-lg-6 form-group">
+                                    <input name="item_id" type="text" placeholder="@lang('Item Number')">
+                                </div>
+                                <div class="col-lg-12 form-group text-center">
+                                    <button type="submit" class="submit-btn">@lang('Query')</button>
+                                </div>
+                            </div>
+                        </form>
+
                     </div>
                 </div>
             </div>
