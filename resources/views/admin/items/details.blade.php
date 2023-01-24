@@ -103,7 +103,7 @@
 
                                 <tr>
                                     <td data-label="@lang('status')"><b>@lang('Status') : </b></td>
-                                    <td data-label="@lang('status')">{{ $item->status }}</td>
+                                    <td data-label="@lang('status')">{{ $item->status->name }}</td>
                                     <td data-label="@lang('notes')"><b>@lang('Notes') : </b></td>
                                     <td data-label="@lang('notes')">{{ $item->notes }} </td>
                                     <td></td>

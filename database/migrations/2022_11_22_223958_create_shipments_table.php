@@ -19,7 +19,7 @@ class CreateShipmentsTable extends Migration
             $table->string('shipment_id',25);
             $table->date('open_date')->default(Now());
             $table->date('sending_date')->nullable();
-            $table->boolean('status')->default(0);
+            $table->foreignId('status_id')->constrained('shipment_statuses');
             $table->text('note')->nullable();
             $table->timestamps();
         });

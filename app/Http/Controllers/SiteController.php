@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Frontend;
 use App\Models\Language;
 use App\Models\Page;
+use App\Models\ShipmentItem;
 use App\Models\Subscriber;
 use App\Models\SupportAttachment;
 use App\Models\SupportMessage;
@@ -213,5 +214,21 @@ class SiteController extends Controller
     {
         $page_title = 'API Documentation';
         return view($this->activeTemplate.'apiDocumentation',compact('page_title'));
+    }
+
+    public function query()
+    {
+        $page_title = 'Tracking order';
+        return view($this->activeTemplate.'query',compact('page_title'));
+    }
+
+    public function queryResult(Request $request)
+    {
+       $item=ShipmentItem::where('item_id',$request->item_id)->first();
+        $page_title = 'Tracking order number' . $request->item_id;
+        $notify[] = ['error', 'Wrong item id!'];
+        if ($item)
+           return view($this->activeTemplate.'query_result',compact('item','page_title'));
+       else return back()->withNotify($notify);
     }
 }

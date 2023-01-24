@@ -52,7 +52,7 @@ class ItemsExport implements FromCollection, WithHeadings , WithEvents ,WithStyl
            'second_installment',
            'remaining_amount',
            'notes',
-           'status',
+           'status_id',
            'delivery_method',
            'weight',
        'recivied_date_in_qatar'

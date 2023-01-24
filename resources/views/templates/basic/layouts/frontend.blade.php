@@ -75,24 +75,24 @@
                             <ul class="navbar-nav main-menu ml-auto">
                                 <li><a href="{{route('home')}}">{{__('Home')}}</a></li>
 
-                                @foreach($pages as $k => $data)
-                                    <li><a href="{{route('pages',[$data->slug])}}">{{__($data->name)}}</a></li>
-                                @endforeach
+                                {{--@foreach($pages as $k => $data)--}}
+                                    {{--<li><a href="{{route('pages',[$data->slug])}}">{{__($data->name)}}</a></li>--}}
+                                {{--@endforeach--}}
 
                                 <li><a href="{{ route('contact') }}">@lang('Contact')</a></li>
-
-                                <li class="menu_has_children">
-                                    <a href="#0">@lang('Account')</a>
-                                    <ul class="sub-menu">
-                                        @auth
-                                            <li><a href="{{ route('user.home') }}">@lang('Dashboard')</a></li>
-                                            <li><a href="{{ route('user.logout') }}">@lang('Logout')</a></li>
-                                        @else
-                                            <li><a href="{{ route('user.login') }}">@lang('Login')</a></li>
-                                            <li><a href="{{ route('user.register') }}">@lang('Register')</a></li>
-                                        @endauth
-                                    </ul>
-                                </li>
+                                <li><a href="{{ route('query') }}">@lang('Tracking order')</a></li>
+                                {{--<li class="menu_has_children">--}}
+                                    {{--<a href="#0">@lang('Account')</a>--}}
+                                    {{--<ul class="sub-menu">--}}
+                                        {{--@auth--}}
+                                            {{--<li><a href="{{ route('user.home') }}">@lang('Dashboard')</a></li>--}}
+                                            {{--<li><a href="{{ route('user.logout') }}">@lang('Logout')</a></li>--}}
+                                        {{--@else--}}
+                                            {{--<li><a href="{{ route('user.login') }}">@lang('Login')</a></li>--}}
+                                            {{--<li><a href="{{ route('user.register') }}">@lang('Register')</a></li>--}}
+                                        {{--@endauth--}}
+                                    {{--</ul>--}}
+                                {{--</li>--}}
                                 <select class="select w-auto ml-xl-3 langSel" style="background: transparent;color: white;height: 10px;border: 1px solid #e5e5e575;">
                                     @foreach($language as $item)
                                         <option value="{{$item->code}}" @if(session('lang') == $item->code) selected  @endif class="mr-0">{{ __($item->name) }}</option>
@@ -148,18 +148,18 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-2 col-sm-6 mrb-30">
-                    <div class="footer-widget">
-                        <h3 class="widget-title">@lang('Quick Link')</h3>
-                        <ul>
-                            @foreach($pages as $k => $data)
-                                <li><a href="{{route('pages',[$data->slug])}}">{{__($data->name)}}</a></li>
-                            @endforeach
+                {{--<div class="col-lg-2 col-sm-6 mrb-30">--}}
+                    {{--<div class="footer-widget">--}}
+                        {{--<h3 class="widget-title">@lang('Quick Link')</h3>--}}
+                        {{--<ul>--}}
+                            {{--@foreach($pages as $k => $data)--}}
+                                {{--<li><a href="{{route('pages',[$data->slug])}}">{{__($data->name)}}</a></li>--}}
+                            {{--@endforeach--}}
 
-                            <li><a href="{{ route('contact') }}">@lang('Contact')</a></li>
-                        </ul>
-                    </div>
-                </div>
+                            {{--<li><a href="{{ route('contact') }}">@lang('Contact')</a></li>--}}
+                        {{--</ul>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
                 <div class="col-lg-3 col-sm-6 mrb-30">
                     <div class="footer-widget">
                         <h3 class="widget-title">@lang('Privacy and Terms')</h3>

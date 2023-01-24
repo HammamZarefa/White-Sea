@@ -13,4 +13,19 @@ class Shipment extends Model
     {
         return $this->hasMany(ShipmentItem::class);
     }
+
+    public function status()
+    {
+        return $this->belongsTo(ShipmentStatus::class);
+    }
+
+//    public function setStatusAttribute($value)
+//    {
+//        $this->attributes['status'] = ShipmentStatus::where('name',$value)->first()->id;
+//    }
+//
+//    public function getStatusAttribute($value)
+//    {
+//        return ShipmentStatus::where('id',$value)->first()->name;;
+//    }
 }

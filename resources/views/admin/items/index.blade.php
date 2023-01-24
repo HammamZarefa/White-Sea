@@ -22,7 +22,7 @@
                                 {{--<th scope="col">@lang('Delivery Method')</th>--}}
                                 {{--<th scope="col">@lang('Recivied in Qatar')</th>--}}
                                 {{--<th scope="col">@lang('Status')</th>--}}
-                                {{--<th scope="col">@lang('Status')</th>--}}
+                                <th scope="col">@lang('Status')</th>
                                 {{--<th scope="col">@lang('API Order')</th>--}}
                                 {{--<th scope="col">@lang('Date')</th>--}}
                                 <th scope="col">@lang('Action')</th>
@@ -46,7 +46,7 @@
                                     {{--<td data-label="@lang('Delivery Method')">{{ $item->delivery_method }}</td>--}}
                                     {{--<td data-label="@lang('Recivied in Qatar')">{{ $item->recivied_date_in_qatar }}</td>--}}
                                     {{--<td data-label="@lang('Sending from Qatar')">{{ $item->sending_date_from_qatar }}</td>--}}
-                                    {{--<td data-label="@lang('Status')">{{ $item->status }}</td>--}}
+                                    <td data-label="@lang('Status')">{{@$item->status->name }}</td>
                                     <td data-label="@lang('Action')">
                                         <a href="{{ route('admin.items.show', $item->id) }}"
                                            class="icon-btn btn--primary ml-1">
