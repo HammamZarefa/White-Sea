@@ -58,6 +58,10 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::get('notification/read/{id}','AdminController@notificationRead')->name('notification.read');
         Route::get('notifications','AdminController@notifications')->name('notifications');
 
+        Route::get('/migrate', function(){
+            \Artisan::call('migrate');
+            dd('migrated!');
+        });
 
         // Users Manager
         Route::get('users', 'ManageUsersController@allUsers')->name('users.all');
@@ -265,8 +269,10 @@ Route::get('extra/{id}/{slug}', 'SiteController@extraDetails')->name('extra.deta
 
 Route::get('placeholder-image/{size}', 'SiteController@placeholderImage')->name('placeholderImage');
 
-Route::get('/{slug}', 'SiteController@pages')->name('pages');
+//Route::get('/{slug}', 'SiteController@pages')->name('pages');
 //Route::get('/', 'Auth\LoginController@showLoginForm')->name('home');
 Route::get('/', 'SiteController@index')->name('home');
+Route::get('query','SiteController@query');
+Route::post('query','SiteController@queryResult')->name('query');
 
 

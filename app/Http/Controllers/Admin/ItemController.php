@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Item;
 use App\Models\Shipment;
 use App\Models\ShipmentItem;
+use App\Models\ShipmentStatus;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -21,7 +22,7 @@ class ItemController extends Controller
     {
         $page_title = 'الإشعارات';
         $empty_message = 'No Result Found';
-        $items=Item::where('is_active',1)->get();
+        $items=ShipmentItem::where('is_active',1)->get();
         return view('admin.items.index',compact('items','empty_message','page_title'));
     }
 
@@ -33,7 +34,8 @@ class ItemController extends Controller
     public function create($shipment)
     {
         $page_title = 'إضافة إشعار';
-        return view('admin.items.create',compact('page_title','shipment'));
+        $status=ShipmentStatus::where('is_active',1)->get();
+        return view('admin.items.create',compact('page_title','shipment','status'));
     }
 
     /**
@@ -44,11 +46,11 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-
         $data= $request->except(['_token']);
-        ShipmentItem::create($data);
         $notify[] = ['success', 'Shipment added!'];
+        if(ShipmentItem::create($data))
         return back()->withNotify($notify);
+        else return back()->withNotify('error');
     }
 
     /**
@@ -73,8 +75,9 @@ class ItemController extends Controller
     public function edit($id)
     {
         $item=ShipmentItem::findorfail($id);
+        $status=ShipmentStatus::where('is_active',1)->get();
         $page_title=$item->item_id;
-        return view('admin.items.edit',compact('item','page_title'));
+        return view('admin.items.edit',compact('item','page_title','status'));
     }
 
     /**
@@ -113,8 +116,9 @@ class ItemController extends Controller
        $shipment=Shipment::findorfail($id);
        $empty_message = 'No Result Found';
        $page_title = $shipment->title . '  ' . $shipment->shipment_id;
-       $items=ShipmentItem::where('shipment',$id)->where('is_active',1)->paginate(getPaginate());
-       return view('admin.items.index',compact('page_title','empty_message','items','shipment'));
+       $items=ShipmentItem::where('shipment',$id)->where('is_active',1)->with('status')->paginate(getPaginate());
+       $status=ShipmentStatus::where('is_active',1)->get();
+       return view('admin.items.index',compact('page_title','empty_message','items','shipment','status'));
    }
 
     public function search(Request $request,$shipment)
@@ -131,8 +135,9 @@ class ItemController extends Controller
             $items=ShipmentItem::where('shipment',$shipment)->paginate(getPaginate());
         }
 //        $shipment=Shipment::findorfail($request->shipment);
+        $status=ShipmentStatus::where('is_active',1)->get();
         $empty_message = 'No Result Found';
-        return view('admin.items.index',compact('page_title','empty_message','items','shipment'));
+        return view('admin.items.index',compact('page_title','empty_message','items','shipment','status'));
     }
 
     public function export($id)

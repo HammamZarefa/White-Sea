@@ -186,11 +186,10 @@
                                         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-3 mb-15">
                                             <div class="input-group">
                                                 <label class="w-100 font-weight-bold">@lang('Status') <span class="text-danger">*</span></label>
-                                                <select name="status" class="form-control ">
-                                                    <option value="1" {{$item->status== 1 ? 'selected' : ''}}>@lang('Holding')</option>
-                                                    <option value="2" {{$item->status== 2 ? 'selected' : ''}}>@lang('Sending')</option>
-                                                    <option value="3" {{$item->status== 3 ? 'selected' : ''}}>@lang('Delivering')</option>
-                                                    <option value="4" {{$item->status== 4 ? 'selected' : ''}}>@lang('Delivered')</option>
+                                                <select name="status_id" class="form-control ">
+                                                    @foreach($status as $state)
+                                                    <option value="{{$state->id}}" {{$item->status_id== $state->id ? 'selected' : ''}}>{{$state->name}}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>

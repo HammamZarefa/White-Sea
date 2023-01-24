@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Shipment;
+use App\Models\ShipmentStatus;
 use Illuminate\Http\Request;
 
 class ShipmentController extends Controller
@@ -17,8 +18,9 @@ class ShipmentController extends Controller
     {
         $page_title = 'الشحنات';
         $empty_message = 'No Result Found';
-        $shipments=Shipment::all();
-        return view('admin.shipments.index',compact('shipments','empty_message','page_title'));
+        $shipments=Shipment::with('status')->get();
+        $status=ShipmentStatus::where('is_active',1)->get();
+        return view('admin.shipments.index',compact('shipments','empty_message','page_title','status'));
     }
 
     /**
@@ -51,7 +53,7 @@ class ShipmentController extends Controller
         $shipment->sending_date=$request->sending;
         $shipment->note=$request->note;
         $shipment->shipment_id=Now()->format('YmdHis');
-        $shipment->status=1;
+        $shipment->status_id=$request->status_id;
         $shipment->save();
         $notify[] = ['success', 'Shipment added!'];
         return back()->withNotify($notify);
@@ -90,7 +92,7 @@ class ShipmentController extends Controller
     public function update(Request $request, $id)
     {
         \request()->validate([
-            'title' => 'required|string|max:70|unique:shipments,title',
+            'title' => 'required|string|max:70',
             'open' => 'required',
             'sending' => 'required',
         ]);
@@ -100,7 +102,7 @@ class ShipmentController extends Controller
         $shipment->sending_date=$request->sending;
         $shipment->note=$request->note;
         $shipment->shipment_id=Now()->format('YmdHis');
-        $shipment->status=1;
+        $shipment->status_id=$request->status_id;
         $shipment->save();
         $notify[] = ['success', 'Shipment added!'];
         return back()->withNotify($notify);

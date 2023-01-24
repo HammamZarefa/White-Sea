@@ -4,20 +4,24 @@
 
     <div class="row">
         @foreach($shipments as $shipment)
-        <div class="col-sm-4" style="margin-bottom: 10px">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">@lang('Title') : {{$shipment->title}}</h5>
-                    <h6 class="card-title" >@lang('Shipment Number') : {{$shipment->shipment_id}}</h6>
-                    <h6 class="card-title" >@lang('Open Date') : {{$shipment->open_date}}</h6>
-                    <p class="card-text">@lang('Shipment Note') : {{$shipment->note}}</p>
-<br>
-                    <a href="{{route('admin.shipment.items',$shipment->id)}}" class="btn btn-primary">@lang('Shipment Deatils')</a>
-                    <a href="{{route('admin.shipment.item.create',$shipment->id)}}" class="btn btn-success">@lang('Add Item')</a>
-                    <a href="{{route('admin.shipment.item.export',$shipment->id)}}" class="btn btn-warning">@lang('Export Items')</a>
+            <div class="col-sm-4" style="margin-bottom: 10px">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@lang('Title') : {{$shipment->title}}</h5>
+                        <h6 class="card-title">@lang('Shipment Number') : {{$shipment->shipment_id}}</h6>
+                        <h6 class="card-title">@lang('Open Date') : {{$shipment->open_date}}</h6>
+                        <p class="card-title">@lang('Status') : {{$shipment->status->name}}</p>
+                        <p class="card-text">@lang('Shipment Note') : {{$shipment->note}}</p>
+                        <br>
+                        <a href="{{route('admin.shipment.items',$shipment->id)}}"
+                           class="btn btn-primary">@lang('Shipment Deatils')</a>
+                        <a href="{{route('admin.shipment.item.create',$shipment->id)}}"
+                           class="btn btn-success">@lang('Add Item')</a>
+                        <a href="{{route('admin.shipment.item.export',$shipment->id)}}"
+                           class="btn btn-warning">@lang('Export Items')</a>
+                    </div>
                 </div>
             </div>
-        </div>
         @endforeach
         <br>
 
@@ -76,9 +80,7 @@
         var options = {
             series: [{
                 name: 'Total Deposit',
-                data: [
-
-                ]
+                data: []
             }],
             chart: {
                 type: 'bar',
@@ -102,9 +104,7 @@
                 width: 2,
                 colors: ['transparent']
             },
-            xaxis: {
-
-            },
+            xaxis: {},
             yaxis: {
                 title: {
                     text: "{{__($general->cur_sym)}}",
@@ -215,9 +215,9 @@
         var myChart = new Chart(ctx, {
             type: 'doughnut',
             data: {
-                labels: ,
+                labels:,
                 datasets: [{
-                    data: ,
+                    data:,
                     backgroundColor: [
                         '#ff7675',
                         '#6c5ce7',
@@ -279,9 +279,9 @@
         var myChart = new Chart(ctx, {
             type: 'doughnut',
             data: {
-                labels: ,
+                labels:,
                 datasets: [{
-                    data: ,
+                    data:,
                     backgroundColor: [
                         '#ff7675',
                         '#6c5ce7',

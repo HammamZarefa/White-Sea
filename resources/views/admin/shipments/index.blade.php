@@ -22,34 +22,23 @@
                             @forelse ($shipments as $shipment)
                                 <tr>
                                     <td data-label="@lang('ID')">{{$shipment->id}}</td>
-                                    <a href="{{route('admin.shipment.items',$shipment->id)}}">s
+                                    <a href="{{route('admin.shipment.items',$shipment->id)}}">
                                     <td data-label="@lang('Code')">{{$shipment->shipment_id}}</td>
                                     </a>
                                     <td data-label="@lang('Title')">{{__($shipment->title)}}</td>
                                     <td data-label="@lang('Open Date')">{{$shipment->open_date}}</td>
                                     <td data-label="@lang('Sending Date')">{{$shipment->sending_date}}</td>
                                     <td data-label="@lang('Notes')">{{$shipment->note}}</td>
-                                    <td data-label="@lang('Status')">
-                                        @if($shipment->status === 1)
-                                            <span class="text--small badge font-weight-normal badge--success">@lang('Active')</span>
-                                        @else
-                                            <span class="text--small badge font-weight-normal badge--danger">@lang('Inactive')</span>
-                                        @endif
-                                    </td>
+                                    <td data-label="@lang('Status')">{{$shipment->status->name}}</td>
                                     <td data-label="@lang('Action')">
                                         <a href="javascript:void(0)" class="icon-btn ml-1 editBtn"
                                            data-original-title="@lang('Edit')" data-toggle="tooltip"
                                            data-url="{{ route('admin.shipments.update', $shipment->id)}}"
                                            data-title="{{ $shipment->title }}"
                                            data-open="{{$shipment->open_date}}"
-                                           data-sending="{{$shipment->sending_date}}" data-notes="{{$shipment->notes}}">
+                                           data-sending="{{$shipment->sending_date}}" data-notes="{{$shipment->notes}}"
+                                           data-status="{{$shipment->status_id}}">
                                             <i class="la la-edit"></i>
-                                        </a>
-                                        <a href="javascript:void(0)"
-                                           class="icon-btn btn--{{ $shipment->status ? 'danger' : 'success' }} ml-1 statusBtn"
-                                           data-original-title="@lang('Status')" data-toggle="tooltip"
-                                           data-url="{{ route('admin.shipment.status', $shipment->id) }}">
-                                            <i class="la la-eye{{ $shipment->status ? '-slash' : null }}"></i>
                                         </a>
 
                                     </td>
@@ -115,6 +104,19 @@
                                           placeholder="@lang('Enter Notes')"> </textarea>
                             </div>
                         </div>
+
+                        <div class="form-row form-group">
+                            <label class="font-weight-bold ">@lang('Status') <span
+                                        class="text-danger">*</span></label>
+                            <div class="col-sm-12">
+                                <select name="status_id" class="form-control ">
+                                    <option>@lang('Choose one')</option>
+                                    @foreach($status as $state)
+                                        <option value="{{$state->id}}">{{$state->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn--dark" data-dismiss="modal">@lang('Close')</button>
@@ -177,6 +179,19 @@
                             </div>
                         </div>
 
+
+                        <div class="form-row form-group">
+                            <label class="font-weight-bold ">@lang('Status') <span
+                                        class="text-danger">*</span></label>
+                            <div class="col-sm-12">
+                                <select name="status_id" class="form-control ">
+                                    @foreach($status as $state)
+                                        <option value="{{$state->id}}">{{$state->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
                         <div class="modal-footer">
                             <button type="button" class="btn btn--dark" data-dismiss="modal">@lang('Close')</button>
                             <button type="submit" class="btn btn--primary" id="btn-save"
@@ -230,12 +245,14 @@
                 var open = $(this).data('open');
                 var sending = $(this).data('sending');
                 var notes = $(this).data('note');
-
+                var status=$(this).data('status')
                 modal.find('form').attr('action', url);
                 modal.find('input[name=title]').val(title);
                 modal.find(('input[name=open]')).val(open);
                 modal.find(('input[name=sending]')).val(sending);
                 modal.find(('input[name=note]')).val(notes);
+                modal.find(('select[name=status_id]')).val(status);
+                $('.status_id option[value=status]');
                 // modal.find(('select[name=type]')).val(type);
                 modal.modal('show');
             });

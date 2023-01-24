@@ -37,7 +37,7 @@ class CreateShipmentItemsTable extends Migration
             $table->decimal('second_installment');
             $table->decimal('remaining_amount');
             $table->text('notes')->nullable();
-            $table->tinyInteger('status')->default(0);
+            $table->foreignId('status_id')->constrained('shipment_statuses');
             $table->string('delivery_method')->nullable();
             $table->timestamps();
         });
