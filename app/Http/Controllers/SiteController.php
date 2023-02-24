@@ -8,7 +8,9 @@ use App\Models\Category;
 use App\Models\Frontend;
 use App\Models\Language;
 use App\Models\Page;
+use App\Models\Shipment;
 use App\Models\ShipmentItem;
+use App\Models\ShipmentStatus;
 use App\Models\Subscriber;
 use App\Models\SupportAttachment;
 use App\Models\SupportMessage;
@@ -224,11 +226,13 @@ class SiteController extends Controller
 
     public function queryResult(Request $request)
     {
-       $item=ShipmentItem::where('item_id',$request->item_id)->first();
+       $item=ShipmentItem::select('item_id','shipment','packages_number')->where('item_id',$request->item_id)->first();
+        $shipment=Shipment::findorfail($item->shipment);
+       $status=$shipment->status->name;
         $page_title = 'Tracking order number' . $request->item_id;
         $notify[] = ['error', 'Wrong item id!'];
         if ($item)
-           return view($this->activeTemplate.'query_result',compact('item','page_title'));
+           return view($this->activeTemplate.'query_result',compact('item','page_title','status'));
        else return back()->withNotify($notify);
     }
 }

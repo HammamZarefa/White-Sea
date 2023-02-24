@@ -12,7 +12,7 @@ class ShipmentItem extends Model
 
     public function shipment()
     {
-        return $this->belongsTo(Shipment::class)->withDefault();
+        return $this->belongsTo(Shipment::class,'shipment','id');
     }
 
     public function status()

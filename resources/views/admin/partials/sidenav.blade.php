@@ -19,7 +19,7 @@
                     </a>
                 </li>
 
-
+@can('admin')
                 <li class="sidebar-menu-item {{menuActive('admin.shipments*')}}">
                     <a href="{{route('admin.shipments.index')}}" class="nav-link ">
                         <i class="menu-icon las la-bars"></i>
@@ -195,6 +195,13 @@
                     </a>
                 </li>
 
+                    <li class="sidebar-menu-item {{menuActive('admin.admins.all')}}">
+                        <a href="{{route('admin.admins.all')}}" class="nav-link ">
+                            <i class="menu-icon la la-list"></i>
+                            <span class="menu-title">@lang('Manage Employees')</span>
+                        </a>
+                    </li>
+
                 <li class="sidebar-menu-item sidebar-dropdown">
                     <a href="javascript:void(0)" class="{{menuActive('admin.frontend.sections*',3)}}">
                         <i class="menu-icon la la-html5"></i>
@@ -220,7 +227,7 @@
                         </ul>
                     </div>
                 </li>
-                    <li class="sidebar-menu-item">
+                        <li class="sidebar-menu-item"></li>
                         {{--<a href="{{route('admin.banner')}}" class="nav-link ">--}}
                             {{--<i class="menu-icon la la-list"></i>--}}
                             {{--<span class="menu-title">@lang('Manage Banners')</span>--}}
@@ -228,12 +235,15 @@
                     {{--</li>--}}
                  {{--<li class="sidebar__menu-header">@lang('CONTENT MANAGER')</li>--}}
                     @endif
+                @endcan
             </ul>
         </div>
     </div>
+
 </div>
     <script>
         function showRate() {
             document.getElementById("rate").style.display = "block";
         }
     </script>
+
