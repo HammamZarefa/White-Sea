@@ -48,14 +48,17 @@
                                     {{--<td data-label="@lang('Sending from Qatar')">{{ $item->sending_date_from_qatar }}</td>--}}
                                     <td data-label="@lang('Status')">{{@$item->status->name }}</td>
                                     <td data-label="@lang('Action')">
+                                        @can('admin')
                                         <a href="{{ route('admin.items.show', $item->id) }}"
                                            class="icon-btn btn--primary ml-1">
                                             <i class="la la-eye"></i>
                                         </a>
+                                        @endcan
                                         <a href="{{ route('admin.items.edit', $item->id) }}"
                                            class="icon-btn btn--primary ml-1">
                                             <i class="la la-edit"></i>
                                         </a>
+                                            @can('admin')
                                         <a href="javascript:void(0)"
                                            class="icon-btn btn--danger ml-1 statusBtn"
                                            data-original-title="@lang('Status')" data-toggle="tooltip"
@@ -66,6 +69,7 @@
                                            class="icon-btn btn--primary ml-1">
                                             <i class="la la-print"></i>
                                         </a>
+                                            @endcan
                                     </td>
                                 </tr>
                             @empty

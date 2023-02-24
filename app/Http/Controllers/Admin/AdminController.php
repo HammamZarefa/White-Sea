@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use App\Models\AdminNotification;
 use App\Models\Deposit;
 use App\Models\Order;
@@ -21,20 +22,19 @@ class AdminController extends Controller
     public function search()
     {
 
-        $extension='.blade.php';
+        $extension = '.blade.php';
         $path = 'resources/views';
-        $names=['dashboard'];
+        $names = ['dashboard'];
         $files = array_diff(scandir($path), array('..', '.'));
         dd($files);
-        foreach($files as $f){
-            $abs_path = $path.'/'.$f;
-            if(is_dir($abs_path)){ //directory, recurse
-
+        foreach ($files as $f) {
+            $abs_path = $path . '/' . $f;
+            if (is_dir($abs_path)) { //directory, recurse
 
 
             } else {  //file, test if the name ends with $extension
                 $ext_length = strlen($extension);
-                if(substr($f, -$ext_length) === $extension){
+                if (substr($f, -$ext_length) === $extension) {
                     $names[] = $f;
 
                 }
@@ -101,8 +101,8 @@ class AdminController extends Controller
 
 //        $latestUser = User::latest()->limit(6)->get();
         $empty_message = 'User Not Found';
-        $shipments=Shipment::orderBy('id','desc')->with('status')->get();
-        return view('admin.dashboard', compact('page_title',  'shipments','empty_message'));
+        $shipments = Shipment::orderBy('id', 'desc')->with('status')->get();
+        return view('admin.dashboard', compact('page_title', 'shipments', 'empty_message'));
     }
 
 
@@ -161,19 +161,71 @@ class AdminController extends Controller
         return redirect()->route('admin.password')->withNotify($notify);
     }
 
-    public function notifications(){
-        $notifications = AdminNotification::orderBy('id','desc')->paginate(getPaginate());
+    public function notifications()
+    {
+        $notifications = AdminNotification::orderBy('id', 'desc')->paginate(getPaginate());
         $page_title = 'Notifications';
-        return view('admin.notifications',compact('page_title','notifications'));
+        return view('admin.notifications', compact('page_title', 'notifications'));
     }
 
 
-    public function notificationRead($id){
+    public function notificationRead($id)
+    {
         $notification = AdminNotification::findOrFail($id);
         $notification->read_status = 1;
         $notification->save();
         return redirect($notification->click_url);
     }
 
+    public function admins()
+    {
+        $admins = Admin::all();
+        $page_title = 'Employees';
+        return view('admin.admins.list', compact('admins', 'page_title'));
+    }
 
+    public function create()
+    {
+        $page_title = 'Add new emplyee';
+        return view('admin.admins.create', compact( 'page_title'));
+    }
+
+    public function details($id)
+    {
+        $admin=Admin::findorfail($id);
+        $page_title = 'update  emplyee';
+        return view('admin.admins.detail', compact( 'admin','page_title'));
+    }
+
+    public function update(Request $request,$id)
+    {
+        $admin=Admin::findorfail($id);
+        $admin->name = $request->name;
+        $admin->email = $request->email;
+        $admin->is_super= $request->is_super ? 1 : 0;
+        $admin->save();
+        $notify[] = ['success', 'profile has been updated.'];
+        return redirect()->back()->withNotify($notify);
+    }
+
+    public function adminPasswordUpdate(Request $request,$id)
+    {
+        $this->validate($request, [
+            'password' => 'required|min:5|confirmed',
+        ]);
+
+        $user = Admin::findorfail($id);
+        $user->password = bcrypt($request->password);
+        $user->save();
+        $notify[] = ['success', 'Password Changed Successfully.'];
+        return redirect()->back()->withNotify($notify);
+    }
+
+    public function destroy($id)
+    {
+        $admin=Admin::findorfail($id);
+        $admin->delete();
+        $notify[] = ['success', 'Deleted Successfully.'];
+        return redirect()->back()->withNotify($notify);
+    }
 }

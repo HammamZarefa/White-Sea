@@ -10,7 +10,7 @@
                 <div class="col-lg-6 mrb-30">
                     <div class="register-form-area">
                         <h3 class="title">@lang('Shipment item query')</h3>
-                        {{@$item->status->name}}
+                        {{@$status}}
                         <h4>@lang('Packges Number') :  {{@$item->packages_number}}</h4>
                     </div>
                 </div>
