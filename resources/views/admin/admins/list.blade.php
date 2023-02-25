@@ -17,22 +17,27 @@
                             </thead>
                             <tbody>
                             @forelse($admins as $user)
-                            <tr>
-                                <td data-label="@lang('User')">
+                                <tr>
+                                    <td data-label="@lang('User')">
                                         <span class="name">{{$user->name}}</span>
-                                </td>
-                                <td data-label="@lang('Username')">{{ $user->username }}</td>
-                                <td data-label="@lang('Email')">{{ $user->email }}</td>
-                                <td data-label="@lang('Admin')">{{ $user->is_super}}</td>
-                                <td data-label="@lang('Action')">
-                                    <a href="{{ route('admin.admin.detail', $user->id) }}" class="icon-btn" data-toggle="tooltip" title="" data-original-title="@lang('Details')">
-                                        <i class="las la-desktop text--shadow"></i>
-                                    </a>
-                                    <a href="javascript:void(0)" class="icon-btn btn--danger ml-1 deleteBtn" data-original-title="@lang('Delete')" data-toggle="tooltip" data-url="{{ route('admin.admin.destroy', $user->id) }}">
-                                        <i class="la la-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
+                                    </td>
+                                    <td data-label="@lang('Username')">{{ $user->username }}</td>
+                                    <td data-label="@lang('Email')">{{ $user->email }}</td>
+                                    <td data-label="@lang('Admin')">{{ $user->is_super}}</td>
+                                    <td data-label="@lang('Action')">
+                                        <a href="{{ route('admin.admin.detail', $user->id) }}" class="icon-btn"
+                                           data-toggle="tooltip" title="" data-original-title="@lang('Details')">
+                                            <i class="las la-desktop text--shadow"></i>
+                                        </a>
+                                        @if(Auth::guard('admin')->id() != $user->id)
+                                            <a href="javascript:void(0)" class="icon-btn btn--danger ml-1 deleteBtn"
+                                               data-original-title="@lang('Delete')" data-toggle="tooltip"
+                                               data-url="{{ route('admin.admin.destroy', $user->id) }}">
+                                                <i class="la la-trash"></i>
+                                            </a>
+                                        @endif
+                                    </td>
+                                </tr>
                             @empty
                                 <tr>
                                     <td class="text-muted text-center" colspan="100%">{{ __($empty_message) }}</td>
@@ -49,7 +54,8 @@
     </div>
 
     {{-- DELETE MODAL --}}
-    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -75,7 +81,7 @@
 
 @push('script')
     <script>
-        (function($){
+        (function ($) {
             "use strict";
             $('.deleteBtn').on('click', function () {
                 var modal = $('#deleteModal');
