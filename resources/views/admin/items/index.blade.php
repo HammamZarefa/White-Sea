@@ -2,6 +2,25 @@
 @section('panel')
     <div class="row">
         <div class="col-lg-12">
+            <form action="{{ route('admin.shipment.item.search',$shipment) }}" method="GET"
+                  class="form-inline float-sm-right bg--white">
+                <div class="input-group has_append">
+                    <input style="width: 24%" type="text" name="name" class="form-control"
+                           placeholder="@lang('Sender ,Recipient')" value="{{ request()->name ?? '' }}">
+                    <input type="text" name="phone" class="form-control"
+                           placeholder="@lang('Sender Phone')" value="{{ request()->phone ?? '' }}">
+                    <input type="text" name="item" class="form-control"
+                           placeholder="@lang('Item ID')" value="{{ request()->item ?? '' }}">
+                    <div class="input-group-append">
+                        <button class="btn btn--primary" type="submit"><i class="fa fa-search"></i></button>
+                    </div>
+                    <div class="input-group-append mr-2">
+                        <a href="{{route('admin.shipment.items',$shipment)}}" class="btn btn--danger" ><i class="fa fa-trash"></i></a>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-12">
             <div class="card b-radius--10 mb-4">
                 <div class="card-body p-0">
                     <div class="table-responsive--sm table-responsive">
@@ -49,27 +68,28 @@
                                     <td data-label="@lang('Status')">{{@$item->status->name }}</td>
                                     <td data-label="@lang('Action')">
                                         @can('admin')
-                                        <a href="{{ route('admin.items.show', $item->id) }}"
-                                           class="icon-btn btn--primary ml-1">
-                                            <i class="la la-eye"></i>
-                                        </a>
-                                        @endcan
+                                            <a href="{{ route('admin.items.show', $item->id) }}"
+                                               class="icon-btn btn--primary ml-1">
+                                                <i class="la la-eye"></i>
+                                            </a>
+
                                         <a href="{{ route('admin.items.edit', $item->id) }}"
                                            class="icon-btn btn--primary ml-1">
                                             <i class="la la-edit"></i>
                                         </a>
-                                            @can('admin')
-                                        <a href="javascript:void(0)"
-                                           class="icon-btn btn--danger ml-1 statusBtn"
-                                           data-original-title="@lang('Status')" data-toggle="tooltip"
-                                           data-url="{{ route('admin.item.status', $item->id) }}">
-                                            <i class="la la-trash"></i>
-                                        </a>
-                                        <a href="{{ route('admin.item.print', $item->id) }}"
-                                           class="icon-btn btn--primary ml-1">
-                                            <i class="la la-print"></i>
-                                        </a>
-                                            @endcan
+                                        @endcan
+                                        @can('admin')
+                                            <a href="javascript:void(0)"
+                                               class="icon-btn btn--danger ml-1 statusBtn"
+                                               data-original-title="@lang('Status')" data-toggle="tooltip"
+                                               data-url="{{ route('admin.item.status', $item->id) }}">
+                                                <i class="la la-trash"></i>
+                                            </a>
+                                            <a href="{{ route('admin.item.print', $item->id) }}"
+                                               class="icon-btn btn--primary ml-1">
+                                                <i class="la la-print"></i>
+                                            </a>
+                                        @endcan
                                     </td>
                                 </tr>
                             @empty
@@ -83,7 +103,7 @@
                 </div>
 
                 <div class="card-footer">
-                {{ $items->links('admin.partials.paginate') }}
+                    {{ $items->links('admin.partials.paginate') }}
                 </div>
             </div><!-- card end -->
 
@@ -93,18 +113,6 @@
 
 @push('breadcrumb-plugins')
     <div class="row">
-        <div class="col-lg-6">
-            <form action="{{ route('admin.shipment.item.search',$shipment) }}" method="GET"
-                  class="form-inline float-sm-right bg--white">
-                <div class="input-group has_append">
-                    <input type="text" name="search" class="form-control"
-                           placeholder="@lang('Sender ,Recipient or Item ID')" value="{{ $search ?? '' }}" required>
-                    <div class="input-group-append">
-                        <button class="btn btn--primary" type="submit"><i class="fa fa-search"></i></button>
-                    </div>
-                </div>
-            </form>
-        </div>
         <div class="col-lg-3">
             <div class="page-title">
                 <a class="btn btn--primary"
@@ -117,6 +125,7 @@
             </a>
         </div>
     </div>
+
 
     {{--// Status MODAL --}}
     <div class="modal fade" id="statusModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -153,16 +162,16 @@
 @endpush
 
 @push('script')
-<script>
-    (function ($) {
-        "use strict";
-        $('.statusBtn').on('click', function () {
-            var modal = $('#statusModal');
-            var url = $(this).data('url');
+    <script>
+        (function ($) {
+            "use strict";
+            $('.statusBtn').on('click', function () {
+                var modal = $('#statusModal');
+                var url = $(this).data('url');
 
-            modal.find('form').attr('action', url);
-            modal.modal('show');
-        });
-    })(jQuery);
-</script>
+                modal.find('form').attr('action', url);
+                modal.modal('show');
+            });
+        })(jQuery);
+    </script>
 @endpush
