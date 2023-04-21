@@ -8,7 +8,7 @@
             <h3 class="title">
                 <span class="f-1">@lang('Order')</span> <span class="f-2">@lang('Tracking')</span></h3>
             <p>@lang('Enter the item number')</p>
-            <input type="item_id" placeholder="@lang('Item Number')" required>
+            <input type="text" name="item_id" placeholder="@lang('Item Number')" required>
             <button type="submit">@lang('Query')</button>
         </form>
 {{--        <div class="content-section response">--}}

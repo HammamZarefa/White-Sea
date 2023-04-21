@@ -14,6 +14,7 @@
                                 <th scope="col">@lang('Open Date')</th>
                                 <th scope="col">@lang('Sending Date')</th>
                                 <th scope="col">@lang('Notes')</th>
+                                <th scope="col">@lang('Estimation')</th>
                                 <th scope="col">@lang('Status')</th>
                                 <th scope="col">@lang('Actions')</th>
                             </tr>
@@ -23,12 +24,13 @@
                                 <tr>
                                     <td data-label="@lang('ID')">{{$shipment->id}}</td>
                                     <a href="{{route('admin.shipment.items',$shipment->id)}}">
-                                    <td data-label="@lang('Code')">{{$shipment->shipment_id}}</td>
+                                        <td data-label="@lang('Code')">{{$shipment->shipment_id}}</td>
                                     </a>
                                     <td data-label="@lang('Title')">{{__($shipment->title)}}</td>
                                     <td data-label="@lang('Open Date')">{{$shipment->open_date}}</td>
                                     <td data-label="@lang('Sending Date')">{{$shipment->sending_date}}</td>
                                     <td data-label="@lang('Notes')">{{$shipment->note}}</td>
+                                    <td data-label="@lang('Estimation')">{{$shipment->estimation}}</td>
                                     <td data-label="@lang('Status')">{{$shipment->status->name}}</td>
                                     <td data-label="@lang('Action')">
                                         <a href="javascript:void(0)" class="icon-btn ml-1 editBtn"
@@ -37,7 +39,8 @@
                                            data-title="{{ $shipment->title }}"
                                            data-open="{{$shipment->open_date}}"
                                            data-sending="{{$shipment->sending_date}}" data-notes="{{$shipment->notes}}"
-                                           data-status="{{$shipment->status_id}}">
+                                           data-status="{{$shipment->status_id}}"
+                                           data-estimation="{{$shipment->estimation}}">
                                             <i class="la la-edit"></i>
                                         </a>
 
@@ -64,9 +67,9 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" id="myModalLabel"><i
-                                class="fa fa-share-square"></i> @lang('Add New Shipment')</h4>
+                            class="fa fa-share-square"></i> @lang('Add New Shipment')</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">×</span></button>
+                            aria-hidden="true">×</span></button>
                 </div>
                 <form class="form-horizontal" method="post" action="{{ route('admin.shipments.store')}}"
                       enctype="multipart/form-data">
@@ -74,7 +77,7 @@
                     <div class="modal-body">
                         <div class="form-row form-group">
                             <label class="font-weight-bold ">@lang('Title') <span
-                                        class="text-danger">*</span></label>
+                                    class="text-danger">*</span></label>
                             <div class="col-sm-12">
                                 <input type="text" class="form-control has-error bold " id="title" name="title" required
                                        placeholder="@lang('Enter Shipment Title')">
@@ -82,7 +85,7 @@
                         </div>
                         <div class="form-row form-group">
                             <label class="font-weight-bold ">@lang('Open Date') <span
-                                        class="text-danger">*</span></label>
+                                    class="text-danger">*</span></label>
                             <div class="col-sm-12">
                                 <input type="date" class="form-control has-error bold " id="open" name="open" required
                                        placeholder="@lang('Enter Shipment Open Date')">
@@ -90,7 +93,7 @@
                         </div>
                         <div class="form-row form-group">
                             <label class="font-weight-bold ">@lang('Sending Date') <span
-                                        class="text-danger">*</span></label>
+                                    class="text-danger">*</span></label>
                             <div class="col-sm-12">
                                 <input type="date" class="form-control has-error bold " id="sending" name="sending"
                                        required placeholder="@lang('Enter Shipment Sending Date')">
@@ -98,16 +101,24 @@
                         </div>
                         <div class="form-row form-group">
                             <label class="font-weight-bold ">@lang('Notes') <span
-                                        class="text-danger">*</span></label>
+                                    class="text-danger">*</span></label>
                             <div class="col-sm-12">
                                 <textarea class="form-control has-error bold " id="note" name="note"
                                           placeholder="@lang('Enter Notes')"> </textarea>
                             </div>
                         </div>
+                        <div class="form-row form-group">
+                            <label class="font-weight-bold ">@lang('Estimation') <span
+                                    class="text-danger"></span></label>
+                            <div class="col-sm-12">
+                                <input type="date" class="form-control has-error bold " id="estimation" name="estimation"
+                                          placeholder="@lang('Enter estimation')"> </input>
+                            </div>
+                        </div>
 
                         <div class="form-row form-group">
                             <label class="font-weight-bold ">@lang('Status') <span
-                                        class="text-danger">*</span></label>
+                                    class="text-danger">*</span></label>
                             <div class="col-sm-12">
                                 <select name="status_id" class="form-control ">
                                     <option>@lang('Choose one')</option>
@@ -134,9 +145,9 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" id="myModalLabel"><i
-                                class="fa fa-fw fa-share-square"></i>@lang('Edit')</h4>
+                            class="fa fa-fw fa-share-square"></i>@lang('Edit')</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">×</span></button>
+                            aria-hidden="true">×</span></button>
                 </div>
                 <form method="post" enctype="multipart/form-data">
                     @csrf
@@ -144,7 +155,7 @@
                     <div class="modal-body">
                         <div class="form-row form-group">
                             <label class="font-weight-bold ">@lang('Title') <span
-                                        class="text-danger">*</span></label>
+                                    class="text-danger">*</span></label>
                             <div class="col-sm-12">
                                 <input type="text" class="form-control has-error bold " id="title" name="title"
                                        value="{{$shipment->title ?? ''}}" required>
@@ -153,7 +164,7 @@
 
                         <div class="form-row form-group">
                             <label class="font-weight-bold ">@lang('Open Date') <span
-                                        class="text-danger">*</span></label>
+                                    class="text-danger">*</span></label>
                             <div class="col-sm-12">
                                 <input type="date" class="form-control has-error bold " id="open" name="open"
                                        value="{{$shipment->open_date ?? ''}}" required>
@@ -162,7 +173,7 @@
 
                         <div class="form-row form-group">
                             <label class="font-weight-bold ">@lang('Sending Date') <span
-                                        class="text-danger">*</span></label>
+                                    class="text-danger">*</span></label>
                             <div class="col-sm-12">
                                 <input type="date" class="form-control has-error bold " id="sending" name="sending"
                                        value="{{$shipment->sending_date ?? ''}}" required>
@@ -170,7 +181,7 @@
                         </div>
                         <div class="form-row form-group">
                             <label class="font-weight-bold ">@lang('Notes') <span
-                                        class="text-danger">*</span></label>
+                                    class="text-danger">*</span></label>
                             <div class="col-sm-12">
                                 <textarea class="form-control has-error bold " id="note" name="note"
                                           placeholder="@lang('Enter Notes')">
@@ -179,10 +190,17 @@
                             </div>
                         </div>
 
-
+                        <div class="form-row form-group">
+                            <label class="font-weight-bold ">@lang('Estimation') <span
+                                    class="text-danger">*</span></label>
+                            <div class="col-sm-12">
+                                <input type="date" class="form-control has-error bold " id="estimation" name="estimation"
+                                       value="{{$shipment->estimation ?? ''}}" >
+                            </div>
+                        </div>
                         <div class="form-row form-group">
                             <label class="font-weight-bold ">@lang('Status') <span
-                                        class="text-danger">*</span></label>
+                                    class="text-danger">*</span></label>
                             <div class="col-sm-12">
                                 <select name="status_id" class="form-control ">
                                     @foreach($status as $state)
@@ -231,7 +249,7 @@
 
 @push('breadcrumb-plugins')
     <a class="btn btn-sm btn--primary box--shadow1 text-white text--small" data-toggle="modal" data-target="#myModal"><i
-                class="fa fa-fw fa-plus"></i>@lang('Add New')</a>
+            class="fa fa-fw fa-plus"></i>@lang('Add New')</a>
 @endpush
 
 @push('script')
@@ -245,12 +263,14 @@
                 var open = $(this).data('open');
                 var sending = $(this).data('sending');
                 var notes = $(this).data('note');
+                var estimation = $(this).data('estimation');
                 var status=$(this).data('status')
                 modal.find('form').attr('action', url);
                 modal.find('input[name=title]').val(title);
                 modal.find(('input[name=open]')).val(open);
                 modal.find(('input[name=sending]')).val(sending);
                 modal.find(('input[name=note]')).val(notes);
+                modal.find(('input[name=estimation]')).val(estimation);
                 modal.find(('select[name=status_id]')).val(status);
                 $('.status_id option[value=status]');
                 // modal.find(('select[name=type]')).val(type);

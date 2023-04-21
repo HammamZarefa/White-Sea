@@ -54,6 +54,7 @@ class ShipmentController extends Controller
         $shipment->note=$request->note;
         $shipment->shipment_id=Now()->format('YmdHis');
         $shipment->status_id=$request->status_id;
+        $shipment->estimation =$request->estimation;
         $shipment->save();
         $notify[] = ['success', 'Shipment added!'];
         return back()->withNotify($notify);
@@ -103,6 +104,7 @@ class ShipmentController extends Controller
         $shipment->note=$request->note;
         $shipment->shipment_id=Now()->format('YmdHis');
         $shipment->status_id=$request->status_id;
+        $shipment->estimation =$request->estimation;
         $shipment->save();
         $notify[] = ['success', 'Shipment added!'];
         return back()->withNotify($notify);

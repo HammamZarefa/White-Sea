@@ -2,6 +2,7 @@
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
+    <link rel="shortcut icon" href="{{asset($activeTemplateTrue.'images/logo.png')}}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {{--    @include('partials.seo')<!-- fontawesome css link -->--}}
     <link rel="stylesheet" href="{{asset($activeTemplateTrue.'css/plugins.css')}}">
