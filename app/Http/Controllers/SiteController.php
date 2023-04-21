@@ -39,6 +39,8 @@ class SiteController extends Controller
         $data['sections'] = Page::where('tempname',$this->activeTemplate)->where('slug','home')->firstOrFail();
 //        $data['categories']=Category::active()->orderBy('sort')->get();
         $data['banner']=Banner::where('status',1)->orderBy('id')->get();
+        $data['about'] = Frontend::where('data_keys','about.content')->first();
+        $data['services'] = Frontend::where('data_keys','service.element')->get();
         return view($this->activeTemplate . 'home', $data);
     }
 
