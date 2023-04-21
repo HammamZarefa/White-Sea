@@ -5,8 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2490da20-56bd-4eaf-bdb2-0b919b82ad9c" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/WhiteSea.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/WhiteSea.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/ShipmentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/ShipmentController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SiteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SiteController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/shipments/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/shipments/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/templates/basic/layouts/frontend.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/templates/basic/layouts/frontend.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/templates/basic/query.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/templates/basic/query.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/templates/basic/query_result.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/templates/basic/query_result.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -355,7 +360,10 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/Hammam/Downloads/white_sea/white_sea/index.html",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -371,11 +379,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Projects\White-Sea\public" />
       <recent name="G:\WhiteSea\resources\views\templates\basic" />
       <recent name="G:\WhiteSea\assets\images" />
       <recent name="G:\WhiteSea\assets\images\banner" />
       <recent name="G:\WhiteSea\resources\views\admin\items" />
-      <recent name="G:\WhiteSea\resources\views\admin\partials" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="G:\WhiteSea\assets\images" />
@@ -410,6 +418,7 @@
       <workItem from="1674626142660" duration="12000" />
       <workItem from="1677664966228" duration="427000" />
       <workItem from="1677674150284" duration="1709000" />
+      <workItem from="1682070111545" duration="7488000" />
     </task>
     <servers />
   </component>

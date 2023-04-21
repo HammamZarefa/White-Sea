@@ -21,13 +21,15 @@ use Illuminate\Http\Request;
 
 class SiteController extends Controller
 {
-    public function __construct(){
+    public function __construct()
+    {
         $this->activeTemplate = activeTemplate();
     }
 
-    public function index(){
-        $count = Page::where('tempname',$this->activeTemplate)->where('slug','home')->count();
-        if($count == 0){
+    public function index()
+    {
+        $count = Page::where('tempname', $this->activeTemplate)->where('slug', 'home')->count();
+        if ($count == 0) {
             $page = new Page();
             $page->tempname = $this->activeTemplate;
             $page->name = 'HOME';
@@ -36,15 +38,17 @@ class SiteController extends Controller
         }
 
         $data['page_title'] = 'Home';
-        $data['sections'] = Page::where('tempname',$this->activeTemplate)->where('slug','home')->firstOrFail();
+        $data['sections'] = Page::where('tempname', $this->activeTemplate)->where('slug', 'home')->firstOrFail();
 //        $data['categories']=Category::active()->orderBy('sort')->get();
-        $data['banner']=Banner::where('status',1)->orderBy('id')->get();
+        $data['banner'] = Banner::where('status', 1)->orderBy('id')->get();
+        $data['about'] = Frontend::where('data_keys', 'about.content')->first();
+        $data['services'] = Frontend::where('data_keys', 'service.element')->get();
         return view($this->activeTemplate . 'home', $data);
     }
 
     public function pages($slug)
     {
-        $page = Page::where('tempname',$this->activeTemplate)->where('slug',$slug)->firstOrFail();
+        $page = Page::where('tempname', $this->activeTemplate)->where('slug', $slug)->firstOrFail();
         $data['page_title'] = $page->name;
         $data['sections'] = $page;
         return view($this->activeTemplate . 'pages', $data);
@@ -108,7 +112,7 @@ class SiteController extends Controller
         $adminNotification = new AdminNotification();
         $adminNotification->user_id = auth()->id() ? auth()->id() : 0;
         $adminNotification->title = 'New support ticket has opened';
-        $adminNotification->click_url = urlPath('admin.ticket.view',$ticket->id);
+        $adminNotification->click_url = urlPath('admin.ticket.view', $ticket->id);
         $adminNotification->save();
 
         $message->supportticket_id = $ticket->id;
@@ -145,26 +149,29 @@ class SiteController extends Controller
         return redirect()->back();
     }
 
-    public function blogDetails($id,$slug){
-        $blog = Frontend::where('id',$id)->where('data_keys','blog.element')->firstOrFail();
-        $recent_blogs = Frontend::where('id','!=', $id)->where('data_keys', 'blog.element')->latest()->take(5)->get();
+    public function blogDetails($id, $slug)
+    {
+        $blog = Frontend::where('id', $id)->where('data_keys', 'blog.element')->firstOrFail();
+        $recent_blogs = Frontend::where('id', '!=', $id)->where('data_keys', 'blog.element')->latest()->take(5)->get();
         $page_title = $blog->data_values->title;
-        return view($this->activeTemplate.'blogDetails',compact('blog','page_title', 'recent_blogs'));
+        return view($this->activeTemplate . 'blogDetails', compact('blog', 'page_title', 'recent_blogs'));
     }
 
-    public function extraDetails($id,$slug){
-        $extra = Frontend::where('id',$id)->where('data_keys','extra.element')->firstOrFail();
+    public function extraDetails($id, $slug)
+    {
+        $extra = Frontend::where('id', $id)->where('data_keys', 'extra.element')->firstOrFail();
         $page_title = $extra->data_values->title;
-        return view($this->activeTemplate.'extraDetails',compact('extra','page_title'));
+        return view($this->activeTemplate . 'extraDetails', compact('extra', 'page_title'));
     }
 
-    public function placeholderImage($size = null){
+    public function placeholderImage($size = null)
+    {
         if ($size != 'undefined') {
             $size = $size;
-            $imgWidth = explode('x',$size)[0];
-            $imgHeight = explode('x',$size)[1];
+            $imgWidth = explode('x', $size)[0];
+            $imgHeight = explode('x', $size)[1];
             $text = $imgWidth . '×' . $imgHeight;
-        }else{
+        } else {
             $imgWidth = 150;
             $imgHeight = 150;
             $text = 'Undefined Size';
@@ -174,19 +181,19 @@ class SiteController extends Controller
         if ($fontSize <= 9) {
             $fontSize = 9;
         }
-        if($imgHeight < 100 && $fontSize > 30){
+        if ($imgHeight < 100 && $fontSize > 30) {
             $fontSize = 30;
         }
 
-        $image     = imagecreatetruecolor($imgWidth, $imgHeight);
+        $image = imagecreatetruecolor($imgWidth, $imgHeight);
         $colorFill = imagecolorallocate($image, 100, 100, 100);
-        $bgFill    = imagecolorallocate($image, 175, 175, 175);
+        $bgFill = imagecolorallocate($image, 175, 175, 175);
         imagefill($image, 0, 0, $bgFill);
         $textBox = imagettfbbox($fontSize, 0, $fontFile, $text);
-        $textWidth  = abs($textBox[4] - $textBox[0]);
+        $textWidth = abs($textBox[4] - $textBox[0]);
         $textHeight = abs($textBox[5] - $textBox[1]);
-        $textX      = ($imgWidth - $textWidth) / 2;
-        $textY      = ($imgHeight + $textHeight) / 2;
+        $textX = ($imgWidth - $textWidth) / 2;
+        $textY = ($imgHeight + $textHeight) / 2;
         header('Content-Type: image/jpeg');
         imagettftext($image, $fontSize, 0, $textX, $textY, $colorFill, $fontFile, $text);
         imagejpeg($image);
@@ -201,7 +208,7 @@ class SiteController extends Controller
         ];
 
         $validator = validator()->make(\request()->all(), $rules);
-        if ($validator->fails()){
+        if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()->getMessages()]);
         }
 
@@ -209,30 +216,35 @@ class SiteController extends Controller
         $subscribe->email = \request()->email;
         $subscribe->save();
 
-        return response()->json(['success' => true,'message' => 'Thanks for subscribe!']);
+        return response()->json(['success' => true, 'message' => 'Thanks for subscribe!']);
     }
 
     public function apiDocumentation()
     {
         $page_title = 'API Documentation';
-        return view($this->activeTemplate.'apiDocumentation',compact('page_title'));
+        return view($this->activeTemplate . 'apiDocumentation', compact('page_title'));
     }
 
     public function query()
     {
         $page_title = 'Tracking order';
-        return view($this->activeTemplate.'query',compact('page_title'));
+        return view($this->activeTemplate . 'query', compact('page_title'));
     }
 
     public function queryResult(Request $request)
     {
-       $item=ShipmentItem::select('item_id','shipment','packages_number')->where('item_id',$request->item_id)->first();
-        $shipment=Shipment::findorfail($item->shipment);
-       $status=$shipment->status->name;
-        $page_title = 'Tracking order number' . $request->item_id;
-        $notify[] = ['error', 'Wrong item id!'];
-        if ($item)
-           return view($this->activeTemplate.'query_result',compact('item','page_title','status'));
-       else return back()->withNotify($notify);
+        $item = ShipmentItem::select('item_id', 'shipment', 'packages_number')->where('item_id', $request->item_id)->first();
+        if ($item) {
+            $shipment = Shipment::findorfail($item->shipment);
+            $status = $shipment->status->name;
+            $estimation = $shipment->estimation ? $shipment->estimation :
+                $shipment->sending_date->addDays(25);
+            $page_title = 'Tracking order number' . $request->item_id;
+            return view($this->activeTemplate . 'query_result',
+                compact('item', 'page_title', 'status', 'estimation'));
+        } else {
+            $notify[] = ['error', 'Wrong item id!'];
+            return back()->withNotify($notify);
+        }
     }
 }
