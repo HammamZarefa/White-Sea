@@ -2,35 +2,15 @@
 
 @section('content')
 
-    <div class="center-section">
-        <form class="content-section " method="post" action="{{route('query')}}">
+    <div class="center-section order-tracking">
+        <form class="content-section" method="post" action="{{route('query')}}">
             @csrf
             <h3 class="title">
-                <span class="f-1">@lang('Order')</span> <span class="f-2">@lang('Tracking')</span></h3>
+                <span class="f-1"></span>@lang('Order Tracking') <span class="f-2"></span></h3>
             <p>@lang('Enter the item number')</p>
             <input type="text" name="item_id" placeholder="@lang('Item Number')" required>
             <button type="submit">@lang('Query')</button>
-        </form>
-{{--        <div class="content-section response">--}}
-{{--            <h3 class="title"><span class="f-1">Order</span> <span class="f-2">Tracking</span></h3>--}}
-{{--            <div class="response-info">--}}
-{{--                <div>--}}
-{{--                    <span>Notice number</span>--}}
-{{--                    <h6>5353</h6>--}}
-{{--                </div>--}}
-{{--                <div class="bord-un">--}}
-{{--                    <hr class="h-left">--}}
-{{--                    <span>Statue</span>--}}
-{{--                    <h6>in the port of Latakia</h6>--}}
-{{--                    <hr class="h-right">--}}
-{{--                </div>--}}
-{{--                <div>--}}
-{{--                    <span>Expected Time</span>--}}
-{{--                    <h6>15 day ago</h6>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--            <button class="new-request">New Request</button>--}}
-{{--        </div>--}}
+        </form>  
     </div>
 
     <!-- contact-section start -->

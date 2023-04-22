@@ -3,12 +3,12 @@
 
     <div class="center-section">
         <div class="content-section">
-            <h3 class="title"><span class="f-1">@lang('About')</span> <span class="f-2">@lang('Us')</span></h3>
+            <h3 class="title"><span class="f-1"></span>@lang('About Us')<span class="f-2"></span></h3>
             <p>{{ __(@$about->data_values->title) }}</p>
             <p>{{ __(@$about->data_values->content) }}</p>
         </div>
         <div class="content-section">
-            <h3 class="title"><span class="f-1">@lang('Our')</span> <span class="f-2">@lang('Services')</span></h3>
+            <h3 class="title"><span class="f-1"></span>@lang('Our Services')<span class="f-2"></span></h3>
             <div class="d-flex justify-content-around our-services">
                 @foreach($services  as $service)
                     <img src="{{$service->data_values->icon}}" alt="">
