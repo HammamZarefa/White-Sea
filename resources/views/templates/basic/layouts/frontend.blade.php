@@ -121,7 +121,9 @@
     @yield('content')
 
     <div class="side-bar">
-        <li><a href="{{ route('query') }}">@lang('Tracking order')</a></li>
+        <ul>
+            <li><a href="{{ route('query') }}">@lang('Tracking order')</a></li>
+        </ul>
     </div>
     <div class="social">
         <svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
@@ -327,7 +329,7 @@
 {{--@include('admin.partials.notify')--}}
 
 
-{{--<script>--}}
+{{--<script>
 {{--    (function ($) {--}}
 {{--        "use strict";--}}
 {{--        $(document).on("change", ".langSel", function() {--}}

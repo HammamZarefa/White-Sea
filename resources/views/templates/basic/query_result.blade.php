@@ -1,8 +1,7 @@
 @extends($activeTemplate.'layouts.frontend')
 
 @section('content')
-
-    <div class="center-section">
+    <div class="center-section order-tracking">
         <div class="content-section response">
             <h3 class="title"><span class="f-1">@lang('Order')</span> <span class="f-2">@lang('Tracking')</span></h3>
             <div class="response-info">
@@ -21,7 +20,7 @@
                     <h6>{{$estimation}}</h6>
                 </div>
             </div>
-            <a href="{{ route('query') }}" type="submit">@lang('New Request')</a>
+            <a href="{{ route('query') }}" class="new-request" type="submit">@lang('New Request')</a>
         </div>
     </div>
 
