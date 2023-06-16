@@ -4,7 +4,7 @@
 
     <div class="row">
         @foreach($shipments as $shipment)
-            <div class="col-sm-4" style="margin-bottom: 10px">
+            <div class="col-sm-6" style="margin-bottom: 10px;text-align: right">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">@lang('Title') : {{$shipment->title}}</h5>
@@ -12,6 +12,10 @@
                         <h6 class="card-title">@lang('Open Date') : {{$shipment->open_date}}</h6>
                         <p class="card-title">@lang('Status') : {{$shipment->status->name}}</p>
                         <p class="card-text">@lang('Shipment Note') : {{$shipment->note}}</p>
+                        <h6 class="card-title">@lang('Package number') : {{$shipment->shipment_items_sum_packages_number}}</h6>
+                        <h6 class="card-title">@lang('Paid amount') :
+                            {{$shipment->shipment_items_sum_down_payment + $shipment->shipment_items_sum_second_installment}}</h6>
+                        <h6 class="card-title">@lang('Rest amount') : {{$shipment->shipment_items_sum_remaining_amount}}</h6>
                         <br>
                         <a href="{{route('admin.shipment.items',$shipment->id)}}"
                            class="btn btn-primary">@lang('Shipment Deatils')</a>

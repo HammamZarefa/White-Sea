@@ -101,7 +101,13 @@ class AdminController extends Controller
 
 //        $latestUser = User::latest()->limit(6)->get();
         $empty_message = 'User Not Found';
-        $shipments = Shipment::orderBy('id', 'desc')->with('status')->get();
+        $shipments = Shipment::orderBy('id', 'desc')->with('status')
+            ->withSum('shipmentItems','packages_number')
+            ->withSum('shipmentItems','down_payment')
+            ->withSum('shipmentItems','second_installment')
+            ->withSum('shipmentItems','remaining_amount')
+            ->withSum('shipmentItems','cost')
+            ->get();
         return view('admin.dashboard', compact('page_title', 'shipments', 'empty_message'));
     }
 
