@@ -1,0 +1,172 @@
+@extends('admin.layouts.app')
+@section('panel')
+    <div class="row" style="margin-bottom: 10px;text-align: right">
+        <h5>بحث عن اشعار</h5>
+        <div class="col-lg-12">
+            <form action="{{route('admin.shipment.items.search')}}" method="GET"
+                  class="form-inline float-sm-right bg--white">
+                <div class="input-group has_append">
+                    <input style="width: 24%" type="text" name="name" class="form-control"
+                           placeholder="@lang('مرسل ,مستلم')" value="{{ request()->name ?? '' }}">
+                    <input type="text" name="phone" class="form-control"
+                           placeholder="@lang('Sender Phone')" value="{{ request()->phone ?? '' }}">
+                    <input type="text" name="item" class="form-control"
+                           placeholder="@lang('Item ID')" value="{{ request()->item ?? '' }}">
+                    <div class="input-group-append">
+                        <button class="btn btn--primary" type="submit"><i class="fa fa-search"></i></button>
+                    </div>
+                    <div class="input-group-append mr-2">
+                        <a href="" class="btn btn--danger"><i class="fa fa-trash"></i></a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card b-radius--10 mb-4">
+                <div class="card-body p-0">
+                    <div class="table-responsive--sm table-responsive">
+                        <table class="table table--light tabstyle--two">
+                            <thead>
+                            <tr>
+                                <th scope="col">@lang('Item ID')</th>
+                                <th scope="col">@lang('Shipment')</th>
+                                <th scope="col">@lang('Sender Name')</th>
+                                <th scope="col">@lang('Sender Phone')</th>
+                                <th scope="col">@lang('Recipient Name')</th>
+                                <th scope="col">@lang('Recipient Phone')</th>
+                                <th scope="col">@lang('Destination')</th>
+                                <th scope="col">@lang('Package Content')</th>
+                                <th scope="col">@lang('Packages Number')</th>
+                                {{--<th scope="col">@lang('Received Packages')</th>--}}
+                                {{--<th scope="col">@lang('Delivered Packages')</th>--}}
+                                {{--<th scope="col">@lang('Sending Date')</th>--}}
+                                {{--<th scope="col">@lang('Delivery Method')</th>--}}
+                                {{--<th scope="col">@lang('Recivied in Qatar')</th>--}}
+                                {{--<th scope="col">@lang('Status')</th>--}}
+                                <th scope="col">@lang('Status')</th>
+                                {{--<th scope="col">@lang('API Order')</th>--}}
+                                {{--<th scope="col">@lang('Date')</th>--}}
+                                <th scope="col">@lang('Action')</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @forelse ($items as $item)
+                                <tr>
+                                    <td data-label="@lang('Item ID')">{{ $item->item_id }}</td>
+                                    <td data-label="@lang('Shipment')">{{ $item->shipments->title}}</td>
+                                    <td data-label="@lang('Sender Name')">{{$item->sender_name}}</td>
+                                    <td data-label="@lang('Sender Phone')">
+                                        {{$item->sender_phone}}</td>
+                                    <td data-label="@lang('Recipient Name')">{{$item->recipient_name}}</td>
+                                    <td data-label="@lang('Recipient Phone')">{{ $item->recipient_phone }}</td>
+                                    <td data-label="@lang('Destination')">{{ $item->destination }}</td>
+                                    <td data-label="@lang('Package Content')">{!! $item->packages_content !!} </td>
+                                    <td data-label="@lang('Packages Number')">{{ $item->packages_number }}</td>
+                                    {{--<td data-label="@lang('Received Packages')">{{ $item->received_packages }}</td>--}}
+                                    {{--<td data-label="@lang('Delivered Packages')">{{ $item->delivered_packages }}</td>--}}
+                                    {{--<td data-label="@lang('Sending Date')">{{ $item->sending_date }}</td>--}}
+                                    {{--<td data-label="@lang('Delivery Method')">{{ $item->delivery_method }}</td>--}}
+                                    {{--<td data-label="@lang('Recivied in Qatar')">{{ $item->recivied_date_in_qatar }}</td>--}}
+                                    {{--<td data-label="@lang('Sending from Qatar')">{{ $item->sending_date_from_qatar }}</td>--}}
+                                    <td data-label="@lang('Status')">{{@$item->status->name }}</td>
+                                    <td data-label="@lang('Action')">
+                                        @can('admin')
+                                            <a href="{{ route('admin.items.show', $item->id) }}"
+                                               class="icon-btn btn--primary ml-1">
+                                                <i class="la la-eye"></i>
+                                            </a>
+
+                                            <a href="{{ route('admin.items.edit', $item->id) }}"
+                                               class="icon-btn btn--primary ml-1">
+                                                <i class="la la-edit"></i>
+                                            </a>
+                                        @endcan
+                                        @can('admin')
+                                            <a href="javascript:void(0)"
+                                               class="icon-btn btn--danger ml-1 statusBtn"
+                                               data-original-title="@lang('Status')" data-toggle="tooltip"
+                                               data-url="{{ route('admin.item.status', $item->id) }}">
+                                                <i class="la la-trash"></i>
+                                            </a>
+                                            <a href="{{ route('admin.item.print', $item->id) }}"
+                                               class="icon-btn btn--primary ml-1">
+                                                <i class="la la-print"></i>
+                                            </a>
+                                        @endcan
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td class="text-muted text-center" colspan="100%">{{ __($empty_message) }}</td>
+                                </tr>
+                            @endforelse
+                            </tbody>
+                        </table><!-- table end -->
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    {{ $items->links('admin.partials.paginate') }}
+                </div>
+            </div><!-- card end -->
+
+        </div>
+    </div>
+@endsection
+
+@push('breadcrumb-plugins')
+    <div class="row">
+
+    </div>
+
+
+    {{--// Status MODAL --}}
+    <div class="modal fade" id="statusModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">@lang('Update Status')</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <form method="post" action="">
+                    @csrf
+                    {{--<input type="hidden" name="id" id="delete_id" class="delete_id" value="0">--}}
+                    <div class="modal-body">
+                        <p class="text-muted">@lang('Are you sure to change the status?')</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn--dark" data-dismiss="modal">@lang('No')</button>
+                        <button type="submit" class="btn btn--primary">@lang('Yes')</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+@endpush
+
+
+@push('style')
+    <style>
+        .break_line {
+            white-space: initial !important;
+        }
+    </style>
+@endpush
+
+@push('script')
+    <script>
+        (function ($) {
+            "use strict";
+            $('.statusBtn').on('click', function () {
+                var modal = $('#statusModal');
+                var url = $(this).data('url');
+
+                modal.find('form').attr('action', url);
+                modal.modal('show');
+            });
+        })(jQuery);
+    </script>
+@endpush

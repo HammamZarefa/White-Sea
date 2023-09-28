@@ -1,8 +1,30 @@
 @extends('admin.layouts.app')
 
 @section('panel')
-
-    <div class="row">
+    <div class="row" style="margin-bottom: 10px;text-align: right">
+        <h5>بحث عن اشعار</h5>
+        <div class="col-lg-12">
+            <form action="{{route('admin.shipment.items.search')}}" method="GET"
+                  class="form-inline float-sm-right bg--white">
+                <div class="input-group has_append">
+                    <input style="width: 24%" type="text" name="name" class="form-control"
+                           placeholder="@lang('مرسل ,مستلم')" value="{{ request()->name ?? '' }}">
+                    <input type="text" name="phone" class="form-control"
+                           placeholder="@lang('Sender Phone')" value="{{ request()->phone ?? '' }}">
+                    <input type="text" name="item" class="form-control"
+                           placeholder="@lang('Item ID')" value="{{ request()->item ?? '' }}">
+                    <div class="input-group-append">
+                        <button class="btn btn--primary" type="submit"><i class="fa fa-search"></i></button>
+                    </div>
+                    <div class="input-group-append mr-2">
+                        <a href="" class="btn btn--danger"><i class="fa fa-trash"></i></a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <h5 style="text-align: right">الشحنات</h5>
+    <div class="row" title="الشحنات">
         @foreach($shipments as $shipment)
             <div class="col-sm-6" style="margin-bottom: 10px;text-align: right">
                 <div class="card">
@@ -12,10 +34,12 @@
                         <h6 class="card-title">@lang('Open Date') : {{$shipment->open_date}}</h6>
                         <p class="card-title">@lang('Status') : {{$shipment->status->name}}</p>
                         <p class="card-text">@lang('Shipment Note') : {{$shipment->note}}</p>
-                        <h6 class="card-title">@lang('Package number') : {{$shipment->shipment_items_sum_packages_number}}</h6>
+                        <h6 class="card-title">@lang('Package number')
+                            : {{$shipment->shipment_items_sum_packages_number}}</h6>
                         <h6 class="card-title">@lang('Paid amount') :
                             {{$shipment->shipment_items_sum_down_payment + $shipment->shipment_items_sum_second_installment}}</h6>
-                        <h6 class="card-title">@lang('Rest amount') : {{$shipment->shipment_items_sum_remaining_amount}}</h6>
+                        <h6 class="card-title">@lang('Rest amount')
+                            : {{$shipment->shipment_items_sum_remaining_amount}}</h6>
                         <br>
                         <a href="{{route('admin.shipment.items',$shipment->id)}}"
                            class="btn btn-primary">@lang('Shipment Deatils')</a>
@@ -46,7 +70,6 @@
     <div class="row mt-50 mb-none-30">
 
     </div><!-- row end -->
-
 
 @endsection
 

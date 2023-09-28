@@ -10,7 +10,7 @@ class ShipmentItem extends Model
     use HasFactory;
     protected $guarded = ['id'];
 
-    public function shipment()
+    public function shipments()
     {
         return $this->belongsTo(Shipment::class,'shipment','id');
     }
