@@ -168,4 +168,26 @@ class ItemController extends Controller
         $contents = explode('،', $item->packages_content);
         return view('admin.items.print', compact('item', 'page_title', 'contents'));
     }
+    public function searchItem(Request $request)
+    {
+        $page_title = "Search results";
+        if (isset($request->name) || isset($request->phone) || isset($request->item)) {
+            $query = ShipmentItem::query();
+            $query->when(request('name'), function ($q, $name) {
+                return $q->where('sender_name', 'like', "%$name%")
+                    ->orWhere('recipient_name', 'like', "%$name%");
+            });
+            $query->when(request('phone'), function ($q, $phone) {
+                return $q->where('sender_phone', 'like', "%$phone%");
+            });
+            $query->when(request('item'), function ($q, $item) {
+                return $q->where('item_id', 'like', "%$item%");
+            });
+            $items = $query->latest('id')->paginate(getPaginate());
+        }
+
+        $status = ShipmentStatus::where('is_active', 1)->get();
+        $empty_message = 'No Result Found';
+        return view('admin.items.search', compact('page_title', 'empty_message', 'items', 'status'));
+    }
 }

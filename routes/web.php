@@ -6,8 +6,7 @@ Route::get('/clear', function () {
     \Illuminate\Support\Facades\Artisan::call('optimize:clear');
 });
 
-//Cron Controller
-Route::get('cron', 'CronController@placeOrderToApi')->name('cron');
+
 
 /*
 |--------------------------------------------------------------------------
@@ -154,6 +153,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::get('shipmentitems/{id}', 'ItemController@shipmentItems')->name('shipment.items');
         Route::get('shipment/{id}', 'ItemController@create')->name('shipment.item.create');
         Route::get('shipmentsearch/{id}', 'ItemController@search')->name('shipment.item.search');
+        Route::get('itemsearch', 'ItemController@searchItem')->name('shipment.items.search');
+
 
 //        Route::post('shipment/status/{id}','ShipmentController@status')->name('shipment.status');
         Route::resource('items', 'ItemController');
