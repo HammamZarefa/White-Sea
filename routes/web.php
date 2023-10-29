@@ -163,7 +163,10 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
 //        Route::post('shipment/status/{id}','ShipmentController@status')->name('shipment.status');
 //        Route::resource('shipments', 'ShipmentController');
 
-
+        Route::get('status', 'ShippingStatusController@index')->name('status.index');
+        Route::post('status', 'ShippingStatusController@store')->name('status.store');
+        Route::post('status/{status}', 'ShippingStatusController@update')->name('status.update');
+        Route::post('status-active/{status}', 'ShippingStatusController@changeStatus')->name('status.status');
     });
 });
 

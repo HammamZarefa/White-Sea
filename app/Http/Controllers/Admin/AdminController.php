@@ -107,6 +107,7 @@ class AdminController extends Controller
             ->withSum('shipmentItems','second_installment')
             ->withSum('shipmentItems','remaining_amount')
             ->withSum('shipmentItems','cost')
+            ->withSum('shipmentItems','weight')
             ->get();
         return view('admin.dashboard', compact('page_title', 'shipments', 'empty_message'));
     }
