@@ -27,6 +27,13 @@
                     </a>
                 </li>
 
+                    <li class="sidebar-menu-item {{menuActive('admin.status*')}}">
+                        <a href="{{route('admin.status.index')}}" class="nav-link ">
+                            <i class="menu-icon las la-eye"></i>
+                            <span class="menu-title">@lang('Shipping Status')</span>
+                        </a>
+                    </li>
+
 
                 {{--@if(getSettingState())--}}
                 {{--<li class="sidebar-menu-item sidebar-dropdown">--}}

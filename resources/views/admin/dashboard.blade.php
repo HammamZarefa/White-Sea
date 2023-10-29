@@ -40,6 +40,8 @@
                             {{$shipment->shipment_items_sum_down_payment + $shipment->shipment_items_sum_second_installment}}</h6>
                         <h6 class="card-title">@lang('Rest amount')
                             : {{$shipment->shipment_items_sum_remaining_amount}}</h6>
+                        <h6 class="card-title">@lang('Weight')
+                            : {{$shipment->shipment_items_sum_weight}}  كغ</h6>
                         <br>
                         <a href="{{route('admin.shipment.items',$shipment->id)}}"
                            class="btn btn-primary">@lang('Shipment Deatils')</a>
