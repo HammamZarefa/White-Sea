@@ -125,6 +125,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
             //Shipment
             Route::post('shipment/status/{id}', 'ShipmentController@status')->name('shipment.status');
             Route::resource('shipments', 'ShipmentController');
+            Route::resource('shipment-status', 'StatusController');
 // Frontend
             Route::name('frontend.')->prefix('frontend')->group(function () {
                 Route::get('templates', 'FrontendController@templates')->name('templates');
