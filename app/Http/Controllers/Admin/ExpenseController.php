@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateExpenseRequest;
 use App\Http\Requests\UpdateExpenseRequest;
 use App\Models\Expense;
+use App\Models\Statistic;
 
 class ExpenseController extends Controller
 {
@@ -15,7 +16,8 @@ class ExpenseController extends Controller
         $page_title = "expenses";
         $empty_message = "Not Found";
         $expenses = Expense::get();
-        return view("admin.expenses_management.index", compact('expenses', 'page_title', 'empty_message'));
+        $statistic = Statistic::findOrFail(1);
+        return view("admin.expenses_management.index", compact('statistic','expenses', 'page_title', 'empty_message'));
     }
 
 

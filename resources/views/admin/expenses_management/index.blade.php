@@ -36,18 +36,12 @@
                                                 </a>
                                             @endcan
                                             @can('admin')
-                                                {{-- <form
-                                        class="ml-1"
-                                        action="{{ route('admin.expenses.destroy', $expense->id) }}" method="POST">
-                                            @csrf
-                                            @method('delete') --}}
                                                 <a href="javascript:void(0)"
                                                     onclick="event.preventDefault();  document.getElementById('deleteForm{{ $expense->id }}').submit();"
                                                     class="icon-btn btn--danger ml-1 deleteBtn"
                                                     data-original-title="@lang('delete')">
                                                     <i class="la la-trash"></i>
                                                 </a>
-                                                {{-- </form> --}}
                                             @endcan
                                         </td>
 
@@ -181,6 +175,71 @@
             </div>
         </div>
     </div>
+
+
+    {{-- STATISTICS MODAL --}}
+    <div class="modal fade" id="statisticModal" tabindex="-1" role="dialog" aria-labelledby="statisticModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="statisticModalLabel"><i class="fa fa-share-square"></i> @lang('Add New expense')</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">×</span></button>
+                </div>
+                <form class="form-horizontal" method="post" action="{{url('admin/statistics/update')}}"
+                    enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-row form-group">
+                            <label class="font-weight-bold ">@lang('summation')</label>
+                            <div class="col-sm-12">
+                                <input type="number" min=0 step=0.1 class="form-control has-error bold " id="summation"
+                                    name="summation" placeholder="@lang('Enter summation')"
+                                    value="{{ $statistic->summation ?? '' }}">
+                            </div>
+                        </div>
+                        <div class="form-row form-group">
+                            <label class="font-weight-bold ">@lang('paid_amount')</label>
+                            <div class="col-sm-12">
+                                <input type="number" min=0 step=0.1 class="form-control has-error bold " id="paid_amount"
+                                    name="paid_amount" placeholder="@lang('Enter paid amount')"
+                                    value="{{ $statistic->paid_amount ?? '' }}">
+                            </div>
+                        </div>
+                        <div class="form-row form-group">
+                            <label class="font-weight-bold ">@lang('debt')</label>
+                            <div class="col-sm-12">
+                                <input type="number" min=0 step=0.1 class="form-control has-error bold " id="debt"
+                                    name="debt" placeholder="@lang('Enter debt')"
+                                    value="{{ $statistic->debt ?? '' }}">
+                            </div>
+                        </div>
+                        <div class="form-row form-group">
+                            <label class="font-weight-bold ">@lang('transmitted')</label>
+                            <div class="col-sm-12">
+                                <input type="number" min=0 step=0.1 class="form-control has-error bold " id="transmitted"
+                                    name="transmitted" placeholder="@lang('Enter transmitted')"
+                                    value="{{ $statistic->transmitted ?? '' }}">
+                            </div>
+                        </div>
+                        <div class="form-row form-group">
+                            <label class="font-weight-bold ">@lang('remaining_amount')</label>
+                            <div class="col-sm-12">
+                                <input type="number" step=0.1 class="form-control has-error bold " id="remaining_amount"
+                                    name="remaining_amount" placeholder="@lang('Enter remaining_amount')"
+                                    value="{{ $statistic->remaining_amount ?? '' }}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn--dark" data-dismiss="modal">@lang('Close')</button>
+                        <button type="submit" class="btn btn--primary" id="btn-save"
+                            value="add">@lang('Save')</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 
 
@@ -188,7 +247,10 @@
     <a class="btn btn-sm btn--primary box--shadow1 text-white text--small" data-toggle="modal" data-target="#myModal"><i
             class="fa fa-fw fa-plus"></i>@lang('Add New')</a>
 @endpush
-
+@push('breadcrumb-plugins')
+    <a class="btn btn-sm btn--primary box--shadow1 text-white text--small" data-toggle="modal" data-target="#statisticModal"><i
+            class="fa fa-fw fa-plus"></i>@lang('Update Statistics')</a>
+@endpush
 @push('script')
     <script>
         (function($) {

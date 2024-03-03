@@ -147,6 +147,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
             Route::get('shipmentexport/{id}', 'ItemController@export')->name('shipment.item.export');
 
             Route::resource('expenses', 'ExpenseController')->except('show','create','edit');
+            Route::post('/statistics/update', 'StatisticController');
         });
 
 
