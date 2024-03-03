@@ -145,6 +145,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
             Route::post('items/status/{id}', 'ItemController@destroy')->name('item.status');
             Route::get('items/print/{id}', 'ItemController@printItem')->name('item.print');
             Route::get('shipmentexport/{id}', 'ItemController@export')->name('shipment.item.export');
+
+            Route::resource('expenses', 'ExpenseController')->except('show','create','edit');
         });
 
 
