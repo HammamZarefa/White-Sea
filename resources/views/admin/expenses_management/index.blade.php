@@ -18,46 +18,44 @@
                             </thead>
                             <tbody>
                                 @forelse ($expenses as $expense)
-                                <tr>
-                                    <td data-label="@lang('id')">{{$expense->id}}</td>
-                                    <td data-label="@lang('payment_recipient')">{{$expense->recipient}}</td>
-                                    <td data-label="@lang('amount')">{{$expense->amount}}</td>
-                                    <td data-label="@lang('payment_method')">{{$expense->payment_method}}</td>
-                                    <td data-label="@lang('date')">{{$expense->date}}</td>
-                                    <td data-label="@lang('Action')">
-                                        @can('admin')
-                                            <a href="javascript:void(0)" class="icon-btn ml-1 editBtn"
-                                                data-original-title="@lang('Edit')" data-toggle="tooltip"
-                                                data-url="{{ route('admin.expenses.update', $expense->id)}}"
-                                           data-amount="{{ $expense->amount }}"
-                                           data-date="{{$expense->date}}"
-                                           data-recipient="{{$expense->recipient}}"
-                                           data-payment_method="{{$expense->payment_method}}"
-                                           >
-                                                <i class="la la-edit"></i>
-                                            </a>
-                                        @endcan
-                                        @can('admin')
-                                        <form
+                                    <tr>
+                                        <td data-label="@lang('id')">{{ $expense->id }}</td>
+                                        <td data-label="@lang('payment_recipient')">{{ $expense->recipient }}</td>
+                                        <td data-label="@lang('amount')">{{ $expense->amount }}</td>
+                                        <td data-label="@lang('payment_method')">{{ $expense->payment_method }}</td>
+                                        <td data-label="@lang('date')">{{ $expense->date }}</td>
+                                        <td data-label="@lang('Action')">
+                                            @can('admin')
+                                                <a href="javascript:void(0)" class="icon-btn ml-1 editBtn"
+                                                    data-original-title="@lang('Edit')" data-toggle="tooltip"
+                                                    data-url="{{ route('admin.expenses.update', $expense->id) }}"
+                                                    data-amount="{{ $expense->amount }}" data-date="{{ $expense->date }}"
+                                                    data-recipient="{{ $expense->recipient }}"
+                                                    data-payment_method="{{ $expense->payment_method }}">
+                                                    <i class="la la-edit"></i>
+                                                </a>
+                                            @endcan
+                                            @can('admin')
+                                                {{-- <form
                                         class="ml-1"
                                         action="{{ route('admin.expenses.destroy', $expense->id) }}" method="POST">
                                             @csrf
-                                            @method('delete')
-                                            <button type="submit"
-                                                 class="icon-btn btn--danger ml-1 deleteBtn"
-                                                data-original-title="@lang('delete')"
-                                                >
-                                                <i class="la la-trash"></i>
-                                            </button>
-                                        </form>
-                                        @endcan
-                                    </td>
+                                            @method('delete') --}}
+                                                <a href="javascript:void(0)"
+                                                    onclick="event.preventDefault();  document.getElementById('deleteForm{{ $expense->id }}').submit();"
+                                                    class="icon-btn btn--danger ml-1 deleteBtn"
+                                                    data-original-title="@lang('delete')">
+                                                    <i class="la la-trash"></i>
+                                                </a>
+                                                {{-- </form> --}}
+                                            @endcan
+                                        </td>
 
-                                </tr>
+                                    </tr>
                                 @empty
-                                <tr>
-                                    <td class="text-muted text-center" colspan="100%">{{ __($empty_message) }}</td>
-                                </tr>
+                                    <tr>
+                                        <td class="text-muted text-center" colspan="100%">{{ __($empty_message) }}</td>
+                                    </tr>
                                 @endforelse
                             </tbody>
                         </table>
@@ -68,7 +66,11 @@
     </div>
 
 
-
+    <form id="deleteForm{{ $expense->id }}" action="{{ route('admin.expenses.destroy', $expense->id) }}" method="POST"
+        style="display: none;">
+        @csrf
+        @method('delete')
+    </form>
     {{-- NEW MODAL --}}
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -85,8 +87,8 @@
                         <div class="form-row form-group">
                             <label class="font-weight-bold ">@lang('Amount') <span class="text-danger">*</span></label>
                             <div class="col-sm-12">
-                                <input type="number" min=0 class="form-control has-error bold " id="amount" name="amount"
-                                    required placeholder="@lang('Enter Amount')">
+                                <input type="number" min=0 class="form-control has-error bold " id="amount"
+                                    name="amount" required placeholder="@lang('Enter Amount')">
                             </div>
                         </div>
                         <div class="form-row form-group">
@@ -123,7 +125,8 @@
     </div>
 
     {{-- EDIT MODAL --}}
-    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
