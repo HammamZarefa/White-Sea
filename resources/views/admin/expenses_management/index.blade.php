@@ -44,8 +44,14 @@
                                                 </a>
                                             @endcan
                                         </td>
-
                                     </tr>
+
+                                    <form id="deleteForm{{ $expense->id }}"
+                                        action="{{ route('admin.expenses.destroy', $expense->id) }}" method="POST"
+                                        style="display: none;">
+                                        @csrf
+                                        @method('delete')
+                                    </form>
                                 @empty
                                     <tr>
                                         <td class="text-muted text-center" colspan="100%">{{ __($empty_message) }}</td>
@@ -58,13 +64,6 @@
             </div>
         </div>
     </div>
-
-
-    <form id="deleteForm{{ $expense->id }}" action="{{ route('admin.expenses.destroy', $expense->id) }}" method="POST"
-        style="display: none;">
-        @csrf
-        @method('delete')
-    </form>
     {{-- NEW MODAL --}}
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -178,15 +177,17 @@
 
 
     {{-- STATISTICS MODAL --}}
-    <div class="modal fade" id="statisticModal" tabindex="-1" role="dialog" aria-labelledby="statisticModalLabel" aria-hidden="true">
+    <div class="modal fade" id="statisticModal" tabindex="-1" role="dialog" aria-labelledby="statisticModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="statisticModalLabel"><i class="fa fa-share-square"></i> @lang('Add New expense')</h4>
+                    <h4 class="modal-title" id="statisticModalLabel"><i class="fa fa-share-square"></i>
+                        @lang('Add New expense')</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">×</span></button>
                 </div>
-                <form class="form-horizontal" method="post" action="{{url('admin/statistics/update')}}"
+                <form class="form-horizontal" method="post" action="{{ url('admin/statistics/update') }}"
                     enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
@@ -201,8 +202,8 @@
                         <div class="form-row form-group">
                             <label class="font-weight-bold ">@lang('paid_amount')</label>
                             <div class="col-sm-12">
-                                <input type="number" min=0 step=0.1 class="form-control has-error bold " id="paid_amount"
-                                    name="paid_amount" placeholder="@lang('Enter paid amount')"
+                                <input type="number" min=0 step=0.1 class="form-control has-error bold "
+                                    id="paid_amount" name="paid_amount" placeholder="@lang('Enter paid amount')"
                                     value="{{ $statistic->paid_amount ?? '' }}">
                             </div>
                         </div>
@@ -217,8 +218,8 @@
                         <div class="form-row form-group">
                             <label class="font-weight-bold ">@lang('transmitted')</label>
                             <div class="col-sm-12">
-                                <input type="number" min=0 step=0.1 class="form-control has-error bold " id="transmitted"
-                                    name="transmitted" placeholder="@lang('Enter transmitted')"
+                                <input type="number" min=0 step=0.1 class="form-control has-error bold "
+                                    id="transmitted" name="transmitted" placeholder="@lang('Enter transmitted')"
                                     value="{{ $statistic->transmitted ?? '' }}">
                             </div>
                         </div>
@@ -248,8 +249,8 @@
             class="fa fa-fw fa-plus"></i>@lang('Add New')</a>
 @endpush
 @push('breadcrumb-plugins')
-    <a class="btn btn-sm btn--primary box--shadow1 text-white text--small" data-toggle="modal" data-target="#statisticModal"><i
-            class="fa fa-fw fa-plus"></i>@lang('Update Statistics')</a>
+    <a class="btn btn-sm btn--primary box--shadow1 text-white text--small" data-toggle="modal"
+        data-target="#statisticModal"><i class="fa fa-fw fa-plus"></i>@lang('Update Statistics')</a>
 @endpush
 @push('script')
     <script>
