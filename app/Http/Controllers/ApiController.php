@@ -22,7 +22,7 @@ class ApiController extends Controller
     {
         $rules = [
             'action' => 'required|string|in:status',
-            'item_id' => 'required|integer'
+            'item_id' => 'required|string'
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
